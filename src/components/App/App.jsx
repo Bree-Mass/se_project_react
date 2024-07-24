@@ -2,6 +2,8 @@ import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import { defaultClothingItems } from "../../utils/constants";
+import weatherApi from "../../utils/weatherApi";
+import { apiKey } from "../../utils/constants";
 import "./app.css";
 
 function App() {

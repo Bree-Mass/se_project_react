@@ -1,4 +1,4 @@
-import apiKey from "./constants";
+import { apiKey } from "./constants";
 
 export default weatherApi;
 

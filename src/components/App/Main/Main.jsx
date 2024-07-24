@@ -1,5 +1,4 @@
 import "./main.css";
-import "./Main.js";
 
 function Main() {}
 
