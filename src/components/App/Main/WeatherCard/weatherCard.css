@@ -1,0 +1,17 @@
+.weather-card {
+  display: flex;
+  align-items: center;
+  background: #00a3ff url(../../../../assets/images/weather_background.png)
+    right/cover no-repeat;
+  border-radius: 12px;
+  height: 80px;
+  color: white;
+  padding-left: 16px;
+}
+
+.weather-card__temperature {
+  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  line-height: 40px;
+  margin: 0;
+}

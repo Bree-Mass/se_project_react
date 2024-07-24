@@ -1,7 +1,12 @@
-// API CALL WITH LAT/LON AND KEY
+// LOCATION
+const location = { latitude: "32.912163", longitude: "-96.131226" };
+const locationString = `${location.latitude}, ${location.longitude}`;
 
-const apiKey =
-  "https://api.openweathermap.org/data/2.5/weather?lat=${32.912163}&lon=${-96.131226}&units=imperial&appid=${25749e9bb20cf0f2ab39f77a6519c5e4}";
+// API CALL WITH KEY
+
+const apiKey = "25749e9bb20cf0f2ab39f77a6519c5e4";
+
+const apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appid=${apiKey}`;
 
 // DEFAULT CLOTHES
 
@@ -44,4 +49,4 @@ const defaultClothingItems = [
   },
 ];
 
-export { apiKey, defaultClothingItems };
+export { location, locationString, apiKey, apiCall, defaultClothingItems };
