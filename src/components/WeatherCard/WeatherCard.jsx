@@ -12,10 +12,12 @@ import snowyNight from "../../assets/images/snowy_night.png";
 import foggyDay from "../../assets/images/foggy_day.png";
 import foggyNight from "../../assets/images/foggy_night.png";
 
-function WeatherCard() {
+function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
-      <p className="weather-card__temp">The temp is {"placeholder"}</p>
+      <p className="weather-card__temp">
+        The temp is {Math.round(weatherData.temp.F)}
+      </p>
       <img
         className="weather-card__image"
         src={sunnyDay}

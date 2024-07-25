@@ -1,5 +1,5 @@
 // LOCATION
-const location = { latitude: "32.912163", longitude: "-96.131226" };
+const location = { latitude: 32.912163, longitude: -96.131226 };
 const locationString = `${location.latitude}, ${location.longitude}`;
 
 // API CALL WITH KEY

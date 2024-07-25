@@ -1,24 +1,34 @@
-const getForecastWeather = (apiCall) => {
-  // return fetch(apiCall).then((res) => {
-  //   if (res.ok) {
-  //     return res.json();
-  //   } else {
-  //     return Promise.reject(`Error: ${res.status}`);
-  //   }
-  // });
+const getWeather = (apiCall) => {
+  return fetch(apiCall).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+  });
 };
 
-const filterDataFromWeatherAPI = () => {
+const getWeatherType = (temp) => {
+  if (temp >= 86) {
+    return "hot";
+  } else if (temp >= 66) {
+    return "warm";
+  } else {
+    return "cold";
+  }
+};
+
+const filterWeatherData = (data) => {
   if (!data) {
     return null;
   }
-  const weather = {};
-  // WE ARE USING A DIFFERENT API FROM THE DEMO VIDEO.
-  // CHANGE THIS AS NEEDED
+  const result = {};
+  result.city = data.name;
+  result.temp = { F: data.main.temp };
+  result.weather = data.weather[0].main;
+  result.type = getWeatherType(result.temp.F);
 
-  // weather.city = data.location.name;
-  // weather.temperature = data.current.temp_f;
-  return weather;
+  return result;
 };
 
-export { getForecastWeather, filterDataFromWeatherAPI };
+export { getWeather, filterWeatherData };

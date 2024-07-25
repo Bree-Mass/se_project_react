@@ -6,7 +6,7 @@ import "./main.css";
 function Main({ weatherData, handleCardClick }) {
   return (
     <main className="main">
-      <WeatherCard />
+      <WeatherCard weatherData={weatherData} />
       <section className="main__clothes">
         <div className="main__info">
           <p className="main__description">
