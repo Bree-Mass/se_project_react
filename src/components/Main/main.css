@@ -1,0 +1,10 @@
+.main {
+  background-color: aquamarine;
+}
+
+.main__cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  max-width: 100%;
+}

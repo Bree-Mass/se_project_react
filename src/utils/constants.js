@@ -5,7 +5,6 @@ const locationString = `${location.latitude}, ${location.longitude}`;
 // API CALL WITH KEY
 
 const apiKey = "25749e9bb20cf0f2ab39f77a6519c5e4";
-
 const apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appid=${apiKey}`;
 
 // DEFAULT CLOTHES

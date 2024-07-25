@@ -1,7 +1,7 @@
 import "./header.css";
-import logo from "../../../assets/images/header_logo.svg";
-import avatarPlaceholder from "../../../assets/images/avatar_placeholder.png";
-import { locationString } from "../../../utils/constants";
+import logo from "../../assets/images/header_logo.svg";
+import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
+import { locationString } from "../../utils/constants";
 
 function Header() {
   const currentDate = new Date().toLocaleString("default", {

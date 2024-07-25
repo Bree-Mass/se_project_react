@@ -1,13 +1,11 @@
-import { apiCall } from "./constants";
-
 const getForecastWeather = (apiCall) => {
-  return fetch(apiCall).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-  });
+  // return fetch(apiCall).then((res) => {
+  //   if (res.ok) {
+  //     return res.json();
+  //   } else {
+  //     return Promise.reject(`Error: ${res.status}`);
+  //   }
+  // });
 };
 
 const filterDataFromWeatherAPI = () => {

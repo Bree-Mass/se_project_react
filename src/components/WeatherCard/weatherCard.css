@@ -1,17 +1,23 @@
 .weather-card {
   display: flex;
   align-items: center;
-  background: #00a3ff url(../../../../assets/images/weather_background.png)
-    right/cover no-repeat;
-  border-radius: 12px;
+  position: relative;
   height: 80px;
   color: white;
   padding-left: 16px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.weather-card__temperature {
+.weather-card__temp {
   font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
   font-size: 36px;
   line-height: 40px;
   margin: 0;
+  z-index: 1;
+}
+
+.weather-card__image {
+  position: absolute;
+  right: 0;
 }
