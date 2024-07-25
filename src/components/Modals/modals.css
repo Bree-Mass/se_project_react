@@ -9,6 +9,15 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 9;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.modal__opened {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .modal__content {
@@ -23,35 +32,8 @@
 }
 
 .modal__close-button {
+  cursor: pointer;
   position: absolute;
   top: 20px;
   right: 28px;
-}
-
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.modal__label {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal__input {
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 1);
-}
-
-.modal__radio-buttons {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  border: none;
-}
-
-.modal__submit-button {
-  height: 36px;
-  width: 124px;
 }

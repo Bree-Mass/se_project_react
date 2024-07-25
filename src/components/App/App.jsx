@@ -1,23 +1,43 @@
 import React from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ModalWithForm from "../Modals/FormModal/FormModal";
+import ItemModal from "../Modals/ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import { location, apiCall, defaultClothingItems } from "../../utils/constants";
 import "./app.css";
 
 const App = () => {
   const [weatherData, setWeatherData] = React.useState({ type: "cold" });
+  const [activeModal, setActiveModal] = React.useState("");
+  const [selectedCard, setSelectedCard] = React.useState({});
+
+  const handleAddClick = () => {
+    setActiveModal("add-modal");
+  };
+
+  const handleCardClick = (card) => {
+    setActiveModal("card-modal");
+    setSelectedCard(card);
+  };
+
+  const closeModals = () => {
+    setActiveModal("");
+  };
 
   return (
     <div className="page">
       <div className="page__wrapper">
-        <Header />
-        <Main weatherData={weatherData} />
+        <Header handleAddClick={handleAddClick} />
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
-      {/* {activeModal === "create" && ( */}
-      <ModalWithForm titleText="New garment" buttonText="Add garment">
+      <ModalWithForm
+        titleText="New garment"
+        buttonText="Add garment"
+        activeModal={activeModal}
+        handleCloseModal={closeModals}
+      >
         <label className="modal__label" htmlFor="name">
           Name
           <input
@@ -44,7 +64,6 @@ const App = () => {
           />
           <span className="modal__error"></span>
         </label>
-
         <fieldset className="modal__radio-buttons">
           <legend className="modal__legend">Select the weather type:</legend>
           <label className="modal__label_radio" htmlFor="choiceHot">
@@ -79,10 +98,12 @@ const App = () => {
           </label>
         </fieldset>
       </ModalWithForm>
-      {/* )} */}
-      {/* {activeModal === "preview" && (
-        <ItemModal card={selectedCard} onClose={closeAllModals} />
-      )} */}
+      <ItemModal
+        activeModal={activeModal}
+        card={selectedCard}
+        handleCardClick={handleCardClick}
+        handleCloseModal={closeModals}
+      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import logo from "../../assets/images/header_logo.svg";
 import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
 import { locationString } from "../../utils/constants";
 
-function Header() {
+function Header({ handleAddClick }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -18,7 +18,13 @@ function Header() {
         </p>
       </div>
       <div className="header__user">
-        <button className="header__add-button">+ Add Clothes</button>
+        <button
+          className="header__add-button"
+          type="button"
+          onClick={handleAddClick}
+        >
+          + Add Clothes
+        </button>
         <p className="header__username">Bree Massingill</p>
         <img className="header__avatar" src={avatarPlaceholder} alt="avatar" />
       </div>
