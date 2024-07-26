@@ -10,8 +10,8 @@ function Main({ weatherData, handleCardClick }) {
       <section className="main__clothes">
         <div className="main__info">
           <p className="main__description">
-            Today is {"Placeholder"}&deg;F and it is {"Placeholder"}. You may
-            want to wear:
+            Today is {weatherData.temp.F}&deg;F and it is {weatherData.type}.
+            You may want to wear:
           </p>
         </div>
         <ul className="main__cards-list">

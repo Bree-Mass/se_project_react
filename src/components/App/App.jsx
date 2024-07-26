@@ -4,14 +4,14 @@ import Main from "../Main/Main";
 import ModalWithForm from "../Modals/FormModal/FormModal";
 import ItemModal from "../Modals/ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
-import { apiCall, defaultClothingItems } from "../../utils/constants";
+import { apiCall } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import "./app.css";
 
 const App = () => {
   const [weatherData, setWeatherData] = React.useState({
     type: "",
-    temp: { F: 999, C: 999 },
+    temp: { F: "", C: "" },
     city: "",
     weather: "",
   });

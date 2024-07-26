@@ -48,4 +48,80 @@ const defaultClothingItems = [
   },
 ];
 
-export { location, locationString, apiKey, apiCall, defaultClothingItems };
+const weatherBackgrounds = [
+  {
+    isDay: true,
+    weather: "clear",
+    url: new URL("../assets/images/day/sunny_day.png", import.meta.url).href,
+  },
+  {
+    isDay: true,
+    weather: "clouds",
+    url: new URL("../assets/images/day/cloudy_day.png", import.meta.url).href,
+  },
+  {
+    isDay: true,
+    weather: "rain",
+    url: new URL("../assets/images/day/rainy_day.png", import.meta.url).href,
+  },
+  {
+    isDay: true,
+    weather: "thunderstorm",
+    url: new URL("../assets/images/day/stormy_day.png", import.meta.url).href,
+  },
+  {
+    isDay: true,
+    weather: "snow",
+    url: new URL("../assets/images/day/snowy_day.png", import.meta.url).href,
+  },
+  {
+    isDay: true,
+    weather: "fog",
+    url: new URL("../assets/images/day/foggy_day.png", import.meta.url).href,
+  },
+  {
+    isDay: false,
+    weather: "clear",
+    url: new URL("../assets/images/night/sunny_night.png", import.meta.url)
+      .href,
+  },
+  {
+    isDay: false,
+    weather: "clouds",
+    url: new URL("../assets/images/night/cloudy_night.png", import.meta.url)
+      .href,
+  },
+  {
+    isDay: false,
+    weather: "rain",
+    url: new URL("../assets/images/night/rainy_night.png", import.meta.url)
+      .href,
+  },
+  {
+    isDay: false,
+    weather: "thunderstorm",
+    url: new URL("../assets/images/night/stormy_night.png", import.meta.url)
+      .href,
+  },
+  {
+    isDay: false,
+    weather: "snow",
+    url: new URL("../assets/images/night/snowy_night.png", import.meta.url)
+      .href,
+  },
+  {
+    isDay: false,
+    weather: "fog",
+    url: new URL("../assets/images/night/foggy_night.png", import.meta.url)
+      .href,
+  },
+];
+
+export {
+  location,
+  locationString,
+  apiKey,
+  apiCall,
+  defaultClothingItems,
+  weatherBackgrounds,
+};
