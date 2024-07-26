@@ -1,10 +1,24 @@
 .item-card {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-color: rgb(233, 233, 233);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .item-card__heading {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 2px 12px;
+  top: 15px;
+  margin: 0;
 }
 
 .item-card__image {
-  height: 100px;
-  width: 100px;
+  height: 328px;
+  width: 325px;
 }

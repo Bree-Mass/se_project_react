@@ -7,10 +7,10 @@
   padding-left: 16px;
   border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 40px;
 }
 
 .weather-card__temp {
-  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
   font-size: 36px;
   line-height: 40px;
   margin: 0;

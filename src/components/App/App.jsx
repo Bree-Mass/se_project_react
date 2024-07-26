@@ -30,7 +30,6 @@ const App = () => {
     setActiveModal(null);
   };
   const handleOutsideClick = (evt) => {
-    console.log(evt.target);
     if (
       evt.target === itemModalRef.current ||
       evt.target === addModalRef.current
@@ -65,7 +64,7 @@ const App = () => {
 
   return (
     <div className="page">
-      <div className="page__wrapper">
+      <div className="page__content">
         <Header weatherData={weatherData} handleOpen={openModals} />
         <Main weatherData={weatherData} handleOpen={openModals} />
         <Footer />

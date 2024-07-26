@@ -9,8 +9,7 @@ function Main({ weatherData, handleOpen }) {
       <WeatherCard weatherData={weatherData} />
       <section className="main__clothes">
         <p className="main__description">
-          Today is {weatherData.temp.F}&deg;F and it is {weatherData.type}. You
-          may want to wear:
+          Today is {weatherData.temp.F}&deg;F / You may want to wear:
         </p>
         <ul className="main__cards-list">
           {defaultClothingItems

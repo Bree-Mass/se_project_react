@@ -1,5 +1,6 @@
-.main {
-  background-color: aquamarine;
+.main__description {
+  font-size: 20px;
+  margin-bottom: 34px;
 }
 
 .main__cards-list {
