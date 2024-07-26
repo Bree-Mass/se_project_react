@@ -21,25 +21,20 @@ const App = () => {
   const itemModalRef = React.useRef(null);
 
   const openModals = (card) => {
-    if (card._id) {
-      setActiveModal("card-modal");
-      setSelectedCard(card);
-    } else {
-      setActiveModal("add-modal");
-    }
+    card._id
+      ? (setActiveModal("card-modal"), setSelectedCard(card))
+      : setActiveModal("add-modal");
   };
-
-  // const handleCardClick = (card) => {
-  //   console.log(card);
-  //   setActiveModal("card-modal");
-  //   setSelectedCard(card);
-  // };
 
   const closeModals = () => {
     setActiveModal(null);
   };
   const handleOutsideClick = (evt) => {
-    if (itemModalRef.current || addModalRef.current === evt.target) {
+    console.log(evt.target);
+    if (
+      evt.target === itemModalRef.current ||
+      evt.target === addModalRef.current
+    ) {
       closeModals();
     }
   };
