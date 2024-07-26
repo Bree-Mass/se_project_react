@@ -3,17 +3,15 @@ import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
 import "./main.css";
 
-function Main({ weatherData, handleCardClick }) {
+function Main({ weatherData, handleOpen }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
       <section className="main__clothes">
-        <div className="main__info">
-          <p className="main__description">
-            Today is {weatherData.temp.F}&deg;F and it is {weatherData.type}.
-            You may want to wear:
-          </p>
-        </div>
+        <p className="main__description">
+          Today is {weatherData.temp.F}&deg;F and it is {weatherData.type}. You
+          may want to wear:
+        </p>
         <ul className="main__cards-list">
           {defaultClothingItems
             .filter((item) => {
@@ -21,11 +19,7 @@ function Main({ weatherData, handleCardClick }) {
             })
             .map((item) => {
               return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onCardClick={handleCardClick}
-                />
+                <ItemCard key={item._id} item={item} onCardClick={handleOpen} />
               );
             })}
         </ul>

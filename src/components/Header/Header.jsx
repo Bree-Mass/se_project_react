@@ -3,12 +3,11 @@ import logo from "../../assets/images/header_logo.svg";
 import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
 import { locationString } from "../../utils/constants";
 
-function Header({ weatherData, handleAddClick }) {
+function Header({ weatherData, handleOpen }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-
   return (
     <div className="header">
       <div className="header__info">
@@ -21,7 +20,7 @@ function Header({ weatherData, handleAddClick }) {
         <button
           className="header__add-button"
           type="button"
-          onClick={handleAddClick}
+          onClick={handleOpen}
         >
           + Add Clothes
         </button>

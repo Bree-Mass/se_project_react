@@ -15,27 +15,50 @@ const App = () => {
     city: "",
     weather: "",
   });
-  const [activeModal, setActiveModal] = React.useState("");
+  const [activeModal, setActiveModal] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const addModalRef = React.useRef(null);
+  const itemModalRef = React.useRef(null);
 
-  const handleAddClick = () => {
-    setActiveModal("add-modal");
+  const openModals = (card) => {
+    if (card._id) {
+      setActiveModal("card-modal");
+      setSelectedCard(card);
+    } else {
+      setActiveModal("add-modal");
+    }
   };
 
-  const handleCardClick = (card) => {
-    setActiveModal("card-modal");
-    setSelectedCard(card);
-  };
+  // const handleCardClick = (card) => {
+  //   console.log(card);
+  //   setActiveModal("card-modal");
+  //   setSelectedCard(card);
+  // };
 
   const closeModals = () => {
-    setActiveModal("");
+    setActiveModal(null);
   };
-
+  const handleOutsideClick = (evt) => {
+    if (itemModalRef.current || addModalRef.current === evt.target) {
+      closeModals();
+    }
+  };
   const handleEscClose = (evt) => {
     if (evt.key === "Escape") {
       closeModals();
     }
   };
+
+  React.useEffect(() => {
+    if (activeModal) {
+      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("keydown", handleEscClose);
+      return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+        document.removeEventListener("keydown", handleEscClose);
+      };
+    }
+  }, [activeModal]);
 
   React.useEffect(() => {
     getWeather(apiCall)
@@ -48,16 +71,16 @@ const App = () => {
   return (
     <div className="page">
       <div className="page__wrapper">
-        <Header weatherData={weatherData} handleAddClick={handleAddClick} />
-        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Header weatherData={weatherData} handleOpen={openModals} />
+        <Main weatherData={weatherData} handleOpen={openModals} />
         <Footer />
       </div>
       <FormModal
         titleText="New garment"
         buttonText="Add garment"
         activeModal={activeModal}
+        addModalRef={addModalRef}
         handleCloseModal={closeModals}
-        handleEscClose={handleEscClose}
       >
         <label className="modal__label" htmlFor="name">
           Name
@@ -122,9 +145,9 @@ const App = () => {
       <ItemModal
         activeModal={activeModal}
         card={selectedCard}
-        handleCardClick={handleCardClick}
+        itemModalRef={itemModalRef}
+        handleOpen={openModals}
         handleCloseModal={closeModals}
-        handleEscClose={handleEscClose}
       />
     </div>
   );

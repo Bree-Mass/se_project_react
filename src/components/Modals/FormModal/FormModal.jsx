@@ -8,35 +8,14 @@ function FormModal({
   buttonText,
   activeModal,
   handleCloseModal,
-  handleEscClose,
+  addModalRef,
 }) {
-  const FormModalArea = React.useRef(null);
-  const FormContentArea = React.useRef(null);
-  const handleOutsideClick = (evt) => {
-    if (
-      FormModalArea.current.contains(evt.target) &&
-      !FormContentArea.current.contains(evt.target)
-    ) {
-      handleCloseModal();
-    }
-  };
-  React.useEffect(() => {
-    if (activeModal === "add-modal") {
-      document.addEventListener("click", handleOutsideClick);
-      document.addEventListener("keydown", handleEscClose);
-      return () => {
-        document.removeEventListener("click", handleOutsideClick);
-        document.removeEventListener("keydown", handleEscClose);
-      };
-    }
-  }, [activeModal]);
-
   return (
     <div
-      className={`modal ${activeModal === "add-modal" && "modal__opened"}`}
-      ref={FormModalArea}
+      className={`modal ${activeModal === "add-modal" ? "modal__opened" : ""}`}
+      ref={addModalRef}
     >
-      <div className="modal__content" ref={FormContentArea}>
+      <div className="modal__content">
         <h2 className="modal__title">{titleText}</h2>
         <button
           className="modal__close-button"
@@ -45,7 +24,7 @@ function FormModal({
         >
           CLOSE
         </button>
-        <form action="" className="modal__form">
+        <form className="modal__form">
           {children}
           <button className="modal__submit-button" type="submit">
             {buttonText}

@@ -23,7 +23,7 @@ function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
       <p className="weather-card__temp">
-        The temp is {weatherData.temp.F}&deg; F
+        The temp is {weatherData.temp.F}&deg;F
       </p>
       <img
         className="weather-card__image"
