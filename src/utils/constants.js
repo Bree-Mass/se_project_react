@@ -117,6 +117,16 @@ const weatherBackgrounds = [
   },
 ];
 
+const defaultWeatherBackgrounds = {
+  day: {
+    url: new URL("../assets/images/day/default_day.png", import.meta.url).href,
+  },
+  night: {
+    url: new URL("../assets/images/night/default_night.png", import.meta.url)
+      .href,
+  },
+};
+
 export {
   location,
   locationString,
@@ -124,4 +134,5 @@ export {
   apiCall,
   defaultClothingItems,
   weatherBackgrounds,
+  defaultWeatherBackgrounds,
 };

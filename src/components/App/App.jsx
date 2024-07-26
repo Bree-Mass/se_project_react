@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import ModalWithForm from "../Modals/FormModal/FormModal";
+import FormModal from "../Modals/FormModal/FormModal";
 import ItemModal from "../Modals/ItemModal/ItemModal";
 import Footer from "../Footer/Footer";
 import { apiCall } from "../../utils/constants";
@@ -31,6 +31,12 @@ const App = () => {
     setActiveModal("");
   };
 
+  const handleEscClose = (evt) => {
+    if (evt.key === "Escape") {
+      closeModals();
+    }
+  };
+
   React.useEffect(() => {
     getWeather(apiCall)
       .then((data) => {
@@ -46,11 +52,12 @@ const App = () => {
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
-      <ModalWithForm
+      <FormModal
         titleText="New garment"
         buttonText="Add garment"
         activeModal={activeModal}
         handleCloseModal={closeModals}
+        handleEscClose={handleEscClose}
       >
         <label className="modal__label" htmlFor="name">
           Name
@@ -111,12 +118,13 @@ const App = () => {
             Cold
           </label>
         </fieldset>
-      </ModalWithForm>
+      </FormModal>
       <ItemModal
         activeModal={activeModal}
         card={selectedCard}
         handleCardClick={handleCardClick}
         handleCloseModal={closeModals}
+        handleEscClose={handleEscClose}
       />
     </div>
   );
