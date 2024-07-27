@@ -9,9 +9,9 @@ const getWeather = (apiCall) => {
 };
 
 const getWeatherType = (temp) => {
-  if (temp >= 86) {
+  if (temp >= 75) {
     return "hot";
-  } else if (temp >= 66) {
+  } else if (temp >= 60) {
     return "warm";
   } else {
     return "cold";

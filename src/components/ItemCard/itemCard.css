@@ -5,7 +5,11 @@
   background-color: rgb(233, 233, 233);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
+  box-sizing: border-box;
   overflow: hidden;
+  width: fit-content;
+  max-height: 328px;
+  max-width: 325px;
 }
 
 .item-card__heading {
@@ -16,9 +20,11 @@
   padding: 2px 12px;
   top: 15px;
   margin: 0;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 .item-card__image {
   height: 328px;
   width: 325px;
+  object-fit: cover;
 }
