@@ -21,7 +21,7 @@ const App = () => {
   const itemModalRef = React.useRef(null);
 
   const openModals = (card) => {
-    card._id
+    !isNaN(card._id)
       ? (setActiveModal("card-modal"), setSelectedCard(card))
       : setActiveModal("add-modal");
   };

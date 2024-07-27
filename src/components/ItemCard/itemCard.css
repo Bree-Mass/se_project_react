@@ -20,7 +20,7 @@
   padding: 2px 12px;
   top: 15px;
   margin: 0;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .item-card__image {

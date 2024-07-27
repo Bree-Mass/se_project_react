@@ -100,6 +100,12 @@ const defaultClothingItems = [
     weather: "warm",
     link: "https://cdni.llbean.net/is/image/wim/512997_40656_41?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/512997_40656_41",
   },
+  {
+    _id: 15,
+    name: "Sunglasses",
+    weather: "hot",
+    link: "https://images.thdstatic.com/productImages/6bf97df0-9694-4916-9d33-297252793cc1/svn/shadedeye-safety-glasses-85901-16-64_600.jpg",
+  },
 ];
 
 const weatherBackgrounds = [
