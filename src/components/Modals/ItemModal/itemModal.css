@@ -1,0 +1,28 @@
+.modal__content_type_image {
+  max-height: 610px;
+  max-width: 498px;
+  overflow: hidden;
+}
+
+.modal__image {
+  height: 498px;
+  width: 498px;
+  object-fit: cover;
+}
+
+.modal__footer {
+  margin: 20px 32px 32px;
+  gap: 12px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.modal__footer_name {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.modal__footer_weather {
+  margin: 0;
+}

@@ -25,15 +25,18 @@
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
-  padding: 28px 28px 36px;
   box-sizing: border-box;
-  max-width: 496px;
-  width: 100%;
 }
 
 .modal__close-button {
+  background: transparent no-repeat center
+    url(../../assets/images/close_icon.svg);
   cursor: pointer;
   position: absolute;
   top: 20px;
   right: 28px;
+  height: 20px;
+  width: 20px;
+  border: none;
+  padding: 0;
 }

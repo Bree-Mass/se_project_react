@@ -13,9 +13,7 @@ function ItemModal({ activeModal, card, handleCloseModal, itemModalRef }) {
           className="modal__close-button"
           type="button"
           onClick={handleCloseModal}
-        >
-          CLOSE
-        </button>
+        />
         <img src={card.link} alt="" className="modal__image" />
         <div className="modal__footer">
           <h2 className="modal__footer_name">{card.name}</h2>

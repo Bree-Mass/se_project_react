@@ -15,18 +15,16 @@ function FormModal({
       className={`modal ${activeModal === "add-modal" ? "modal__opened" : ""}`}
       ref={addModalRef}
     >
-      <div className="modal__content">
+      <div className="modal__content modal__content_type_form">
         <h2 className="modal__title">{titleText}</h2>
         <button
           className="modal__close-button"
           type="button"
           onClick={handleCloseModal}
-        >
-          CLOSE
-        </button>
+        />
         <form className="modal__form">
           {children}
-          <button className="modal__submit-button" type="submit">
+          <button className="modal__submit-button" type="submit" disabled>
             {buttonText}
           </button>
         </form>

@@ -121,7 +121,7 @@ const App = () => {
               id="choiceWarm"
               name="weatherType"
               value="warm"
-            />{" "}
+            />
             Warm
           </label>
           <label className="modal__label_radio" htmlFor="choiceCold">
