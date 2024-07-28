@@ -9,6 +9,7 @@ function FormModal({
   activeModal,
   handleCloseModal,
   addModalRef,
+  isButtonDisabled,
 }) {
   return (
     <div
@@ -24,7 +25,11 @@ function FormModal({
         />
         <form className="modal__form">
           {children}
-          <button className="modal__submit-button" type="submit" disabled>
+          <button
+            className="modal__submit-button"
+            type="submit"
+            disabled={isButtonDisabled}
+          >
             {buttonText}
           </button>
         </form>
