@@ -9,7 +9,9 @@ function FormModal({
   activeModal,
   handleCloseModal,
   addModalRef,
+  formRef,
   isButtonDisabled,
+  handleSubmit,
 }) {
   return (
     <div
@@ -23,7 +25,7 @@ function FormModal({
           type="button"
           onClick={handleCloseModal}
         />
-        <form className="modal__form">
+        <form className="modal__form" ref={formRef} onSubmit={handleSubmit}>
           {children}
           <button
             className="modal__submit-button"

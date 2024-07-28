@@ -22,21 +22,26 @@ const App = () => {
   const [formValidation, setFormValidation] = React.useState({
     name: "inactive",
     link: "inactive",
-  });
+    radio: "inactive",
+  }); // sets all form elements with a default validation message
 
   //// USE REFS ////
 
   const addModalRef = React.useRef(null);
+  const formRef = React.useRef(null);
   const itemModalRef = React.useRef(null);
 
   //// HANDLE MODALS ////
 
   const openModals = (card) => {
+    // checks which modal needs to be opened
+    // will need to change when more modals are implemented
     !isNaN(card._id)
       ? (setActiveModal("card-modal"), setSelectedCard(card))
       : setActiveModal("add-modal");
   };
   const closeModals = () => {
+    handleFormReset();
     setActiveModal(null);
   };
   const handleOutsideClick = (evt) => {
@@ -55,7 +60,8 @@ const App = () => {
 
   //// FORM VALIDATION ////
 
-  const handleChange = (evt) => {
+  const handleTextChange = (evt) => {
+    // sets the validation message when typing in a form element
     if (!evt.target.checkValidity()) {
       setFormValidation({
         ...formValidation,
@@ -75,10 +81,51 @@ const App = () => {
     }
   };
 
+  const handleRadioChange = () => {
+    // enables validation when a radio button is active
+    setFormValidation({
+      ...formValidation,
+      radio: "",
+    });
+  };
+
+  const handleFormReset = () => {
+    // checks if a form and its validation needs to be reset
+    if (activeModal === "add-modal") {
+      formRef.current.reset();
+      for (let element of formRef.current.elements) {
+        if (element.parentElement.classList.contains("modal__error")) {
+          element.parentElement.classList.remove("modal__error");
+        }
+        if (
+          element.nextElementSibling &&
+          element.nextElementSibling.classList.contains(
+            "modal__validation_visible"
+          )
+        ) {
+          element.nextElementSibling.classList.remove(
+            "modal__validation_visible"
+          );
+        }
+      }
+      setFormValidation({
+        name: "inactive",
+        link: "inactive",
+        radio: "inactive",
+      });
+    }
+  };
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+    closeModals();
+  };
+
   //// USE EFFECTS ////
 
   // MODAL //
   React.useEffect(() => {
+    // sets/removes event listeners whenever a modal is opened/closed
     if (activeModal) {
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("keydown", handleEscClose);
@@ -91,11 +138,12 @@ const App = () => {
 
   // FORM //
   React.useEffect(() => {
+    // form is invalid if any validation message is present.
     const isFormValid = Object.values(formValidation).every(
       (validationMessage) => validationMessage === ""
     );
     setIsButtonDisabled(!isFormValid);
-  }, [formValidation]);
+  }, [formValidation, activeModal]);
 
   // WEATHER API //
   React.useEffect(() => {
@@ -120,8 +168,10 @@ const App = () => {
         buttonText="Add garment"
         activeModal={activeModal}
         addModalRef={addModalRef}
+        formRef={formRef}
         handleCloseModal={closeModals}
         isButtonDisabled={isButtonDisabled}
+        handleSubmit={handleFormSubmit}
       >
         <label className="modal__label" htmlFor="name">
           Name*
@@ -133,7 +183,7 @@ const App = () => {
             placeholder="Name"
             minLength="1"
             maxLength="30"
-            onChange={handleChange}
+            onInput={handleTextChange}
             required
           />
           <span className="modal__validation">({formValidation.name})</span>
@@ -146,7 +196,7 @@ const App = () => {
             name="link"
             id="imageUrl"
             placeholder="Image URL"
-            onChange={handleChange}
+            onInput={handleTextChange}
             required
           />
           <span className="modal__validation">({formValidation.link})</span>
@@ -160,6 +210,7 @@ const App = () => {
               id="choiceHot"
               name="weatherType"
               value="hot"
+              onInput={handleRadioChange}
               required
             />
             <span className="modal__label_span">Hot</span>
@@ -171,6 +222,7 @@ const App = () => {
               id="choiceWarm"
               name="weatherType"
               value="warm"
+              onInput={handleRadioChange}
             />
             <span className="modal__label_span">Warm</span>
           </label>
@@ -181,6 +233,7 @@ const App = () => {
               id="choiceCold"
               name="weatherType"
               value="cold"
+              onInput={handleRadioChange}
             />
             <span className="modal__label_span">Cold</span>
           </label>
