@@ -14,7 +14,6 @@ function ItemCard({ item, onCardClick }) {
         alt={item.name}
         onClick={handleCardClick}
       />
-      {/* <p className="item-card__weather">{item.weather}</p> */}
     </li>
   );
 }

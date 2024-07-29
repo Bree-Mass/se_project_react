@@ -1,4 +1,3 @@
-import React from "react";
 import "../modals.css";
 import "./formModal.css";
 
@@ -21,7 +20,7 @@ function FormModal({
       <div className="modal__content modal__content_type_form">
         <h2 className="modal__title">{titleText}</h2>
         <button
-          className="modal__close-button"
+          className="modal__close-button modal__close-button_type_form"
           type="button"
           onClick={handleCloseModal}
         />

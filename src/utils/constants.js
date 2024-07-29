@@ -1,6 +1,5 @@
 // LOCATION
 const location = { latitude: 32.912163, longitude: -96.131226 };
-const locationString = `${location.latitude}, ${location.longitude}`;
 
 // API CALL WITH KEY
 
@@ -106,6 +105,12 @@ const defaultClothingItems = [
     weather: "hot",
     link: "https://images.thdstatic.com/productImages/6bf97df0-9694-4916-9d33-297252793cc1/svn/shadedeye-safety-glasses-85901-16-64_600.jpg",
   },
+  {
+    _id: 16,
+    name: "Wide Brim Hat",
+    weather: "hot",
+    link: "https://www.dopeheadwear.com/cdn/shop/files/FullSizeRender_1475x.jpg?v=1692065601",
+  },
 ];
 
 const weatherBackgrounds = [
@@ -189,7 +194,6 @@ const defaultWeatherBackgrounds = {
 
 export {
   location,
-  locationString,
   apiKey,
   apiCall,
   defaultClothingItems,

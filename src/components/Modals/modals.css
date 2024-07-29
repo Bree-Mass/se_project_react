@@ -30,7 +30,7 @@
 
 .modal__close-button {
   background: transparent no-repeat center
-    url(../../assets/images/close_icon.svg);
+    url(../../assets/images/close_icon_gray.svg);
   cursor: pointer;
   position: absolute;
   top: 20px;

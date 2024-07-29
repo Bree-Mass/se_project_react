@@ -1,14 +1,45 @@
+.main__clothes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .main__description {
+  align-self: flex-start;
   font-size: 20px;
-  margin-bottom: 34px;
+  line-height: 1.24;
+  margin: 40px 0 34px;
 }
 
 .main__cards-list {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  width: 100%;
   padding: 0;
-  margin-bottom: 171px;
+  margin: 0 0 171px;
   gap: 20px;
+}
+
+/* I could not figure out how to make an element with
+flex-wrap: wrap have a max-width match the total items in a row.
+So I'm setting the width manually here for when the number of
+columns change. This lets the element be center on the page due
+to "align-items: center" on .main__clothes*/
+
+@media screen and (max-width: 1440px) {
+  .main__cards-list {
+    max-width: 1015px;
+  }
+}
+
+@media screen and (max-width: 1095px) {
+  .main__cards-list {
+    max-width: 670px;
+  }
+}
+
+@media screen and (max-width: 766px) {
+  .main__description {
+    margin: 32px 0 20px;
+  }
 }

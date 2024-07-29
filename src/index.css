@@ -1,15 +1,15 @@
 @import url(./vendor/normalize.css);
 @import url(./assets/fonts/fonts.css);
 
+/* If these are removed then it creates white space at
+the bottom of the page. */
 html,
 body {
   height: 100%;
   margin: 0;
-  display: flex;
-  flex-direction: column;
 }
 
-#root {
+.root {
   display: flex;
   flex-direction: column;
   height: 100%;

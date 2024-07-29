@@ -11,6 +11,7 @@ function Main({ weatherData, handleOpen }) {
         <p className="main__description">
           Today is {weatherData.temp.F}&deg;F / You may want to wear:
         </p>
+
         <ul className="main__cards-list">
           {defaultClothingItems
             .filter((item) => {

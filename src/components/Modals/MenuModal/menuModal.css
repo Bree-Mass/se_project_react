@@ -1,0 +1,53 @@
+.modal__type_menu-modal {
+  background-color: transparent;
+  align-items: flex-start;
+}
+
+.modal__content_type_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 208px;
+  max-width: 717px;
+  width: calc(100% - 32px);
+  margin-top: 18px;
+  border-radius: 10px;
+  font-size: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+}
+
+.modal__close-button_type_menu {
+  height: 21px;
+  width: 21px;
+  top: 11px;
+  right: 11px;
+  background: transparent no-repeat center
+    url(../../../assets/images/close_icon_black.svg);
+}
+
+.modal__user {
+  display: flex;
+  height: 40px;
+  gap: 12px;
+  margin: 60px auto 0;
+}
+
+.modal__username {
+  margin: 8px 0 7px;
+}
+
+.modal__avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.modal__add-button {
+  cursor: pointer;
+  width: 116px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  margin: 24px 116px 60px 111px;
+  padding: 0;
+}

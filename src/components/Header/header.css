@@ -4,6 +4,7 @@
   font-size: 20px;
   line-height: 1.2;
   height: 40px;
+  min-width: 100%;
   margin-bottom: 28px;
 }
 
@@ -14,6 +15,10 @@
 
 .header__date {
   margin: 11px 0 4px;
+}
+
+.header__interaction {
+  display: flex;
 }
 
 .header__user {
@@ -37,4 +42,42 @@
 .header__avatar {
   height: 40px;
   width: 40px;
+}
+
+.header__menu_modal-button {
+  cursor: pointer;
+  background: white no-repeat center url(../../assets/images/menu_icon.svg);
+  height: 44px;
+  width: 44px;
+  border: none;
+  border-radius: 10px;
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  padding: 0;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 766px) {
+  .header {
+    height: 100px;
+    margin-bottom: 16px;
+  }
+
+  .header__info {
+    display: inline;
+  }
+
+  .header__date {
+    margin-top: 32px;
+  }
+
+  .header__interaction {
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .header__menu_modal-button {
+    visibility: visible;
+  }
 }

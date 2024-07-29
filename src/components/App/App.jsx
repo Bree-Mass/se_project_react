@@ -3,7 +3,9 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import FormModal from "../Modals/FormModal/FormModal";
 import ItemModal from "../Modals/ItemModal/ItemModal";
+import MenuModal from "../Modals/MenuModal/MenuModal";
 import Footer from "../Footer/Footer";
+import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
 import { apiCall } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import "./app.css";
@@ -30,15 +32,19 @@ const App = () => {
   const addModalRef = React.useRef(null);
   const formRef = React.useRef(null);
   const itemModalRef = React.useRef(null);
+  const menuModalRef = React.useRef(null);
 
   //// HANDLE MODALS ////
 
+  // if the object clicked does not have a key "_id" then use the objects id.
   const openModals = (card) => {
-    // checks which modal needs to be opened
-    // will need to change when more modals are implemented
-    !isNaN(card._id)
-      ? (setActiveModal("card-modal"), setSelectedCard(card))
-      : setActiveModal("add-modal");
+    if (!isNaN(card._id)) {
+      setActiveModal("card-modal");
+      setSelectedCard(card);
+    } else {
+      console.log(card.target.id);
+      setActiveModal(card.target.id);
+    }
   };
   const closeModals = () => {
     handleFormReset();
@@ -47,7 +53,8 @@ const App = () => {
   const handleOutsideClick = (evt) => {
     if (
       evt.target === itemModalRef.current ||
-      evt.target === addModalRef.current
+      evt.target === addModalRef.current ||
+      evt.target === menuModalRef.current
     ) {
       closeModals();
     }
@@ -159,7 +166,11 @@ const App = () => {
   return (
     <div className="page">
       <div className="page__content">
-        <Header weatherData={weatherData} handleOpen={openModals} />
+        <Header
+          weatherData={weatherData}
+          handleOpen={openModals}
+          avatarPlaceholder={avatarPlaceholder}
+        />
         <Main weatherData={weatherData} handleOpen={openModals} />
         <Footer />
       </div>
@@ -245,6 +256,13 @@ const App = () => {
         itemModalRef={itemModalRef}
         handleOpen={openModals}
         handleCloseModal={closeModals}
+      />
+      <MenuModal
+        activeModal={activeModal}
+        menuModalRef={menuModalRef}
+        handleOpen={openModals}
+        handleCloseModal={closeModals}
+        avatarPlaceholder={avatarPlaceholder}
       />
     </div>
   );

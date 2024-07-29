@@ -1,9 +1,7 @@
 import "./header.css";
 import logo from "../../assets/images/header_logo.svg";
-import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
-import { locationString } from "../../utils/constants";
 
-function Header({ weatherData, handleOpen }) {
+function Header({ weatherData, handleOpen, avatarPlaceholder }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -16,17 +14,29 @@ function Header({ weatherData, handleOpen }) {
           {currentDate}, {weatherData.city}
         </p>
       </div>
-      <div className="header__user">
+      <div className="header__interaction">
         <button
+          id="add-modal"
           className="header__add-button"
           type="button"
           onClick={handleOpen}
         >
-          + Add Clothes
+          + Add clothes
         </button>
-        <p className="header__username">Bree Massingill</p>
-        <img className="header__avatar" src={avatarPlaceholder} alt="avatar" />
+        <div className="header__user">
+          <p className="header__username">Bree Massingill</p>
+          <img
+            className="header__avatar"
+            src={avatarPlaceholder}
+            alt="avatar"
+          />
+        </div>
       </div>
+      <button
+        id="menu-modal"
+        className="header__menu_modal-button"
+        onClick={handleOpen}
+      ></button>
     </div>
   );
 }
