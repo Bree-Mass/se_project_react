@@ -5,7 +5,7 @@ import FormModal from "../Modals/FormModal/FormModal";
 import ItemModal from "../Modals/ItemModal/ItemModal";
 import MenuModal from "../Modals/MenuModal/MenuModal";
 import Footer from "../Footer/Footer";
-import avatarPlaceholder from "../../assets/images/avatar_placeholder.png";
+import avatarPlaceholder from "../../assets/avatar_placeholder.png";
 import { apiCall } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import "./app.css";

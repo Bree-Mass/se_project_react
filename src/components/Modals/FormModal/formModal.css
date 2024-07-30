@@ -117,7 +117,7 @@
     height: 21px;
     width: 21px;
     background: transparent no-repeat center
-      url(../../../assets/images/close_icon_black.svg);
+      url(../../../assets/close_icon_black.svg);
   }
 
   .modal__title {

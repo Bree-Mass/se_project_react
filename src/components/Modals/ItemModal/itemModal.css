@@ -52,7 +52,7 @@
 
   .modal__close-button_type_image {
     background: transparent no-repeat center
-      url(../../../assets/images/close_icon_black.svg);
+      url(../../../assets/close_icon_black.svg);
   }
 
   .modal__image {

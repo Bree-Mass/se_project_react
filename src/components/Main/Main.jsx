@@ -10,6 +10,7 @@ function Main({ weatherData, handleOpen }) {
 
   //// HANDLERS ////
 
+  // this is set to randomize on page load, but it can be changed to a static filter if needed.
   const handleFilter = () => {
     return defaultClothingItems
       .filter((item) => {
