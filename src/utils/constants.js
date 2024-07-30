@@ -1,10 +1,9 @@
 // LOCATION
 const location = { latitude: 32.912163, longitude: -96.131226 };
 
-// API CALL WITH KEY
+// API CALL
 
-const apiKey = "25749e9bb20cf0f2ab39f77a6519c5e4";
-const apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appid=${apiKey}`;
+const apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=imperial&appid=25749e9bb20cf0f2ab39f77a6519c5e4`;
 
 // DEFAULT CLOTHES
 
@@ -194,7 +193,6 @@ const defaultWeatherBackgrounds = {
 
 export {
   location,
-  apiKey,
   apiCall,
   defaultClothingItems,
   weatherBackgrounds,

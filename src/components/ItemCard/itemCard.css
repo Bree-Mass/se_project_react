@@ -31,7 +31,7 @@
 @media screen and (max-width: 766px) {
   .item-card {
     height: unset;
-    max-width: calc(50% - 10px);
+    max-width: calc(50% - 8px);
     aspect-ratio: 1 / 1;
   }
 

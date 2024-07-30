@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .main__clothes {
   display: flex;
   flex-direction: column;
@@ -15,9 +21,23 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  width: 1360px;
   padding: 0;
   margin: 0 0 171px;
   gap: 20px;
+}
+
+.main__randomize-button {
+  color: white;
+  background-color: black;
+  align-self: center;
+  position: absolute;
+  bottom: 83px;
+  height: 44px;
+  width: 100%;
+  max-width: 350px;
+  padding: 0;
+  visibility: hidden;
 }
 
 /* I could not figure out how to make an element with
@@ -35,6 +55,7 @@ to "align-items: center" on .main__clothes*/
 @media screen and (max-width: 1095px) {
   .main__cards-list {
     max-width: 670px;
+    margin-bottom: 147px;
   }
 }
 
@@ -42,12 +63,20 @@ to "align-items: center" on .main__clothes*/
   .main__description {
     margin: 32px 0 20px;
   }
+
+  .main__cards-list {
+    column-gap: 15px;
+    row-gap: 16px;
+    width: 100%;
+  }
+
+  .main__randomize-button {
+    visibility: visible;
+  }
 }
 
 @media screen and (max-width: 350px) {
   .main__cards-list {
     max-width: 300px;
-    width: 100%;
-    /* gap: 5px; */
   }
 }

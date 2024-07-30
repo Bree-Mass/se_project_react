@@ -12,12 +12,6 @@ import "./app.css";
 
 const App = () => {
   //// USE STATES ////
-  const [weatherData, setWeatherData] = React.useState({
-    type: "",
-    temp: { F: "", C: "" },
-    city: "",
-    weather: "",
-  });
   const [activeModal, setActiveModal] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
@@ -25,6 +19,12 @@ const App = () => {
     name: "inactive",
     link: "inactive",
     radio: "inactive",
+  });
+  const [weatherData, setWeatherData] = React.useState({
+    type: "",
+    temp: { F: "", C: "" },
+    city: "",
+    weather: "",
   }); // sets all form elements with a default validation message
 
   //// USE REFS ////
@@ -42,7 +42,6 @@ const App = () => {
       setActiveModal("card-modal");
       setSelectedCard(card);
     } else {
-      console.log(card.target.id);
       setActiveModal(card.target.id);
     }
   };
