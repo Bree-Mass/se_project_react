@@ -9,7 +9,7 @@ function ItemModal({ activeModal, card, handleCloseModal, itemModalRef }) {
     >
       <div className="modal__content modal__content_type_image">
         <button
-          className="modal__close-button"
+          className="modal__close-button modal__close-button_type_image"
           type="button"
           onClick={handleCloseModal}
         />

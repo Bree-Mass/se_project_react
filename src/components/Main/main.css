@@ -43,3 +43,11 @@ to "align-items: center" on .main__clothes*/
     margin: 32px 0 20px;
   }
 }
+
+@media screen and (max-width: 350px) {
+  .main__cards-list {
+    max-width: 300px;
+    width: 100%;
+    /* gap: 5px; */
+  }
+}
