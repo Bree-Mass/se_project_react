@@ -7,7 +7,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder }) {
     day: "numeric",
   });
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__info">
         <img className="header__logo" src={logo} alt="logo" />
         <p className="header__date">
@@ -37,7 +37,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder }) {
         className="header__menu_modal-button"
         onClick={handleOpen}
       ></button>
-    </div>
+    </header>
   );
 }
 

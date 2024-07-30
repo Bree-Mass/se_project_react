@@ -1,11 +1,12 @@
 import React from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import FormModal from "../Modals/FormModal/FormModal";
+import ModalWithForm from "../Modals/ModalWithForm/ModalWithForm";
 import ItemModal from "../Modals/ItemModal/ItemModal";
 import MenuModal from "../Modals/MenuModal/MenuModal";
 import Footer from "../Footer/Footer";
 import avatarPlaceholder from "../../assets/avatar_placeholder.png";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 import { apiCall } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import "./app.css";
@@ -15,11 +16,6 @@ const App = () => {
   const [activeModal, setActiveModal] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
-  const [formValidation, setFormValidation] = React.useState({
-    name: "inactive",
-    link: "inactive",
-    radio: "inactive",
-  });
   const [weatherData, setWeatherData] = React.useState({
     type: "",
     temp: { F: "", C: "" },
@@ -29,8 +25,8 @@ const App = () => {
 
   //// USE REFS ////
 
-  const addModalRef = React.useRef(null);
   const formRef = React.useRef(null);
+  const addModalRef = React.useRef(null);
   const itemModalRef = React.useRef(null);
   const menuModalRef = React.useRef(null);
 
@@ -49,30 +45,15 @@ const App = () => {
     handleFormReset();
     setActiveModal(null);
   };
-  const handleOutsideClick = (evt) => {
-    if (
-      evt.target === itemModalRef.current ||
-      evt.target === addModalRef.current ||
-      evt.target === menuModalRef.current
-    ) {
-      closeModals();
-    }
-  };
-  const handleEscClose = (evt) => {
-    if (evt.key === "Escape") {
-      closeModals();
-    }
-  };
 
   //// FORM VALIDATION ////
 
+  const { handleChange, errors, isValid, resetForm } = useFormAndValidation();
+
   const handleTextChange = (evt) => {
     // sets the validation message when typing in a form element
+    handleChange(evt);
     if (!evt.target.checkValidity()) {
-      setFormValidation({
-        ...formValidation,
-        [evt.target.name]: evt.target.validationMessage,
-      });
       evt.target.parentElement.classList.add("modal__error");
       evt.target.nextElementSibling.classList.add("modal__validation_visible");
     } else {
@@ -80,25 +61,19 @@ const App = () => {
       evt.target.nextElementSibling.classList.remove(
         "modal__validation_visible"
       );
-      setFormValidation({
-        ...formValidation,
-        [evt.target.name]: "",
-      });
     }
   };
 
-  const handleRadioChange = () => {
+  const handleRadioChange = (evt) => {
     // enables validation when a radio button is active
-    setFormValidation({
-      ...formValidation,
-      radio: "",
-    });
+    handleChange(evt);
   };
 
   const handleFormReset = () => {
     // checks if a form and its validation needs to be reset
     if (activeModal === "add-modal") {
       formRef.current.reset();
+      resetForm();
       for (let element of formRef.current.elements) {
         if (element.parentElement.classList.contains("modal__error")) {
           element.parentElement.classList.remove("modal__error");
@@ -114,11 +89,6 @@ const App = () => {
           );
         }
       }
-      setFormValidation({
-        name: "inactive",
-        link: "inactive",
-        radio: "inactive",
-      });
     }
   };
 
@@ -132,6 +102,21 @@ const App = () => {
   // MODAL //
   React.useEffect(() => {
     // sets/removes event listeners whenever a modal is opened/closed
+    const handleOutsideClick = (evt) => {
+      if (
+        evt.target === itemModalRef.current ||
+        evt.target === addModalRef.current ||
+        evt.target === menuModalRef.current
+      ) {
+        closeModals();
+      }
+    };
+    const handleEscClose = (evt) => {
+      if (evt.key === "Escape") {
+        closeModals();
+      }
+    };
+
     if (activeModal) {
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("keydown", handleEscClose);
@@ -144,12 +129,8 @@ const App = () => {
 
   // FORM //
   React.useEffect(() => {
-    // form is invalid if any validation message is present.
-    const isFormValid = Object.values(formValidation).every(
-      (validationMessage) => validationMessage === ""
-    );
-    setIsButtonDisabled(!isFormValid);
-  }, [formValidation, activeModal]);
+    setIsButtonDisabled(!isValid);
+  }, [isValid, activeModal]);
 
   // WEATHER API //
   React.useEffect(() => {
@@ -173,14 +154,14 @@ const App = () => {
         <Main weatherData={weatherData} handleOpen={openModals} />
         <Footer />
       </div>
-      <FormModal
+      <ModalWithForm
         titleText="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-modal"}
         addModalRef={addModalRef}
         formRef={formRef}
         handleCloseModal={closeModals}
-        isButtonDisabled={isButtonDisabled}
+        isButtonDisabled={!isButtonDisabled}
         handleSubmit={handleFormSubmit}
       >
         <label className="modal__label" htmlFor="name">
@@ -196,7 +177,7 @@ const App = () => {
             onInput={handleTextChange}
             required
           />
-          <span className="modal__validation">({formValidation.name})</span>
+          <span className="modal__validation">({errors.name})</span>
         </label>
         <label className="modal__label" htmlFor="imageUrl">
           Image*
@@ -209,7 +190,7 @@ const App = () => {
             onInput={handleTextChange}
             required
           />
-          <span className="modal__validation">({formValidation.link})</span>
+          <span className="modal__validation">({errors.link})</span>
         </label>
         <fieldset className="modal__radio-buttons">
           <legend className="modal__legend">Select the weather type:</legend>
@@ -248,19 +229,19 @@ const App = () => {
             <span className="modal__label_span">Cold</span>
           </label>
         </fieldset>
-      </FormModal>
+      </ModalWithForm>
       <ItemModal
-        activeModal={activeModal}
         card={selectedCard}
+        isOpen={activeModal === "card-modal"}
         itemModalRef={itemModalRef}
         handleOpen={openModals}
         handleCloseModal={closeModals}
       />
       <MenuModal
-        activeModal={activeModal}
         menuModalRef={menuModalRef}
         handleOpen={openModals}
         handleCloseModal={closeModals}
+        isOpen={activeModal === "menu-modal"}
         avatarPlaceholder={avatarPlaceholder}
       />
     </div>

@@ -1,22 +1,19 @@
 import "../modals.css";
-import "./formModal.css";
+import "./modalWithForm.css";
 
-function FormModal({
+function ModalWithForm({
   children,
   titleText,
   buttonText,
-  activeModal,
   handleCloseModal,
+  isOpen,
   addModalRef,
   formRef,
   isButtonDisabled,
   handleSubmit,
 }) {
   return (
-    <div
-      className={`modal ${activeModal === "add-modal" ? "modal__opened" : ""}`}
-      ref={addModalRef}
-    >
+    <div className={`modal ${isOpen ? "modal_opened" : ""}`} ref={addModalRef}>
       <div className="modal__content modal__content_type_form">
         <h2 className="modal__title">{titleText}</h2>
         <button
@@ -29,7 +26,7 @@ function FormModal({
           <button
             className="modal__submit-button"
             type="submit"
-            disabled={isButtonDisabled}
+            disabled={!isButtonDisabled}
           >
             {buttonText}
           </button>
@@ -39,4 +36,4 @@ function FormModal({
   );
 }
 
-export default FormModal;
+export default ModalWithForm;

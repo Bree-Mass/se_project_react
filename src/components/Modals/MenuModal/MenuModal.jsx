@@ -2,17 +2,15 @@ import "../modals.css";
 import "./menuModal.css";
 
 function MenuModal({
-  activeModal,
   handleOpen,
   handleCloseModal,
+  isOpen,
   avatarPlaceholder,
   menuModalRef,
 }) {
   return (
     <div
-      className={`modal modal__type_menu-modal ${
-        activeModal === "menu-modal" ? "modal__opened" : ""
-      }`}
+      className={`modal modal__type_menu-modal ${isOpen ? "modal_opened" : ""}`}
       ref={menuModalRef}
     >
       <div className="modal__content modal__content_type_menu">
