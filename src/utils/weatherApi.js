@@ -9,7 +9,7 @@ const getWeather = (apiCall) => {
 };
 
 const getWeatherType = (temp) => {
-  if (temp >= 75) {
+  if (temp >= 77) {
     return "hot";
   } else if (temp >= 60) {
     return "warm";
@@ -28,7 +28,10 @@ const filterWeatherData = (data) => {
   }
   const result = {};
   result.city = data.name;
-  result.temp = { F: Math.round(data.main.temp) };
+  result.temp = {
+    F: Math.round(data.main.temp),
+    C: Math.round(((data.main.temp - 32) * 5) / 9),
+  };
   result.type = getWeatherType(result.temp.F);
   result.weather = data.weather[0].main.toLowerCase();
   result.time = Math.round(Date.now() / 1000); // Divide by 1,000 because DATE is measured in Milliseconds, but API is measured in Seconds.

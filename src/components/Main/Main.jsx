@@ -1,40 +1,27 @@
 import React from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
-import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
+import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
 import "./main.css";
 
-function Main({ weatherData, handleOpen }) {
+function Main({
+  filteredItems,
+  weatherData,
+  handleCardRender,
+  handleRandomize,
+}) {
+  const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-  const [filteredItems, setFilteredItems] = React.useState([]);
 
-  //// HANDLERS ////
-
-  // this is set to randomize on page load, but it can be changed to a static filter if needed.
-  const handleFilter = () => {
-    return defaultClothingItems
-      .filter((item) => {
-        return item.weather === weatherData.type;
-      })
-      .sort(() => Math.random() - 0.5);
-  };
-
-  const handleRenderCards = (array) => {
+  const renderAllCards = (array) => {
     return array.map((item) => {
-      return <ItemCard key={item._id} item={item} onCardClick={handleOpen} />;
+      return handleCardRender(item);
     });
   };
 
-  const handleRandomize = () => {
-    setFilteredItems(handleFilter);
-  };
-
-  //// USE EFFECTS ////
-
-  // FILTER CARDS //
+  // RERENDER //
   React.useEffect(() => {
-    setFilteredItems(handleFilter);
-  }, [weatherData.type]);
+    renderAllCards(filteredItems);
+  });
 
   // CHECK WINDOW SIZE //
   React.useEffect(() => {
@@ -50,16 +37,20 @@ function Main({ weatherData, handleOpen }) {
       <WeatherCard weatherData={weatherData} />
       <section className="main__clothes">
         <p className="main__description">
-          Today is {weatherData.temp.F}&deg;F / You may want to wear:
+          Today is {weatherData.temp[currentTempUnitContext.currentTempUnit]}
+          &deg;{currentTempUnitContext.currentTempUnit} / You may want to wear:
         </p>
-
         <ul className="main__cards-list">
           {windowWidth > 766
-            ? handleRenderCards(filteredItems)
-            : handleRenderCards(filteredItems.slice(0, 4))}
+            ? renderAllCards(filteredItems)
+            : renderAllCards(filteredItems.slice(0, 4))}
         </ul>
       </section>
-      <button className="main__randomize-button" onClick={handleRandomize}>
+      <button
+        className="main__randomize-button"
+        type="button"
+        onClick={handleRandomize}
+      >
         &#8635; Randomize
       </button>
     </main>

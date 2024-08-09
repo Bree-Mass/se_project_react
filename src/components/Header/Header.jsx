@@ -1,7 +1,14 @@
+import Switch from "../Switch/Switch";
 import "./header.css";
 import logo from "../../assets/header_logo.svg";
 
-function Header({ weatherData, handleOpen, avatarPlaceholder }) {
+function Header({
+  weatherData,
+  handleOpen,
+  avatarPlaceholder,
+  isOn,
+  handleToggle,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -15,6 +22,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder }) {
         </p>
       </div>
       <div className="header__interaction">
+        <Switch isOn={isOn} />
         <button
           id="add-modal"
           className="header__add-button"

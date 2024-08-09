@@ -1,3 +1,4 @@
+import React from "react";
 import "./itemCard.css";
 
 function ItemCard({ item, onCardClick }) {
@@ -18,4 +19,4 @@ function ItemCard({ item, onCardClick }) {
   );
 }
 
-export default ItemCard;
+export default React.memo(ItemCard);

@@ -28,6 +28,7 @@
 }
 
 .main__randomize-button {
+  cursor: pointer;
   color: white;
   background-color: black;
   align-self: center;
