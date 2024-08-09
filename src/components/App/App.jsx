@@ -7,6 +7,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../Modals/AddItemModal/AddItemModal";
 import ItemModal from "../Modals/ItemModal/ItemModal";
+import ConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
 import MenuModal from "../Modals/MenuModal/MenuModal";
 import Footer from "../Footer/Footer";
 import avatarPlaceholder from "../../assets/avatar_placeholder.png";
@@ -36,6 +37,7 @@ const App = () => {
   const formRef = React.useRef(null);
   const addModalRef = React.useRef(null);
   const itemModalRef = React.useRef(null);
+  const confirmationModalRef = React.useRef(null);
   const menuModalRef = React.useRef(null);
 
   //// HANDLE SWITCHES ////
@@ -45,7 +47,6 @@ const App = () => {
     setIsSwitchOn(!isSwitchOn);
   };
   //// CARDS ////
-  // this is set to randomize on page load, but it can be changed to a static filter if needed.
   const handleFilter = (array) => {
     return array.filter((item) => {
       return item.weatherType === weatherData.type;
@@ -53,18 +54,28 @@ const App = () => {
   };
 
   const handleRandomize = () => {
-    const filtered = handleFilter(clothingItems);
-    setFilteredItems([...filtered].sort(() => Math.random() - 0.5));
+    setFilteredItems(
+      handleFilter(clothingItems).sort(() => Math.random() - 0.5)
+    );
   };
 
   const handleAddItem = (newItem) => {
-    console.log(newItem);
     const newItemWithId = { _id: uuidv4(), ...newItem };
     setClothingItems((prevItems) => [newItemWithId, ...prevItems]);
   };
 
   const handleCardRender = (item) => {
     return <ItemCard key={item._id} item={item} onCardClick={openModals} />;
+  };
+
+  const handleDelete = (itemToDelete) => {
+    // API call will be here
+    setClothingItems(
+      clothingItems.filter((item) => {
+        return item !== itemToDelete;
+      })
+    );
+    closeModals();
   };
 
   //// HANDLE MODALS ////
@@ -80,6 +91,7 @@ const App = () => {
   };
   const closeModals = () => {
     setActiveModal(null);
+    setSelectedCard({});
   };
 
   // MODAL //
@@ -89,7 +101,8 @@ const App = () => {
       if (
         evt.target === itemModalRef.current ||
         evt.target === addModalRef.current ||
-        evt.target === menuModalRef.current
+        evt.target === menuModalRef.current ||
+        evt.target === confirmationModalRef.current
       ) {
         closeModals();
       }
@@ -121,8 +134,6 @@ const App = () => {
 
   React.useEffect(() => {
     setFilteredItems(handleFilter(clothingItems));
-    console.log("Clothing Items:", clothingItems);
-    console.log("Filtered Items:", handleFilter(clothingItems));
   }, [weatherData.type, clothingItems]);
 
   //// RETURN ELEMENT ////
@@ -171,12 +182,21 @@ const App = () => {
             handleOpen={openModals}
             handleCloseModal={closeModals}
           />
+          <ConfirmationModal
+            card={selectedCard}
+            isOpen={activeModal === "confirm-modal"}
+            confirmationModalRef={confirmationModalRef}
+            handleOpen={openModals}
+            handleCloseModal={closeModals}
+            handleDelete={handleDelete}
+          />
           <MenuModal
             menuModalRef={menuModalRef}
             handleOpen={openModals}
             handleCloseModal={closeModals}
             isOpen={activeModal === "menu-modal"}
             avatarPlaceholder={avatarPlaceholder}
+            isOn={isSwitchOn}
           />
         </CurrentTempUnitContext.Provider>
       </div>

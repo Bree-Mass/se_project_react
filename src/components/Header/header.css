@@ -19,6 +19,7 @@
 
 .header__interaction {
   display: flex;
+  align-items: center;
 }
 
 .header__user {
@@ -29,7 +30,7 @@
   cursor: pointer;
   border: none;
   background-color: transparent;
-  margin: 8px 0;
+  margin: 8px 0 8px 20px;
   font-size: 20px;
   line-height: 1.2;
   padding: 0;
@@ -58,6 +59,10 @@
   visibility: hidden;
 }
 
+.header__switch {
+  margin: auto 20px auto 0;
+}
+
 @media screen and (max-width: 766px) {
   .header {
     height: 100px;
@@ -74,6 +79,7 @@
 
   .header__interaction {
     visibility: hidden;
+    flex-direction: column;
     position: absolute;
   }
 

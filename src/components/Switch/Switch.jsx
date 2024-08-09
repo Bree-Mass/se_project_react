@@ -13,12 +13,24 @@ const Switch = ({ isOn }) => {
         checked={isOn}
         onChange={CurrentTempContext.handleToggleSwitchChange}
       />
-      <label
-        className="switch__label"
-        htmlFor="switch"
-        style={{ background: isOn && "#06D6A0" }}
-      >
+      <label className="switch__label" htmlFor="switch">
+        <p
+          className={`switch__text switch__text_farenheit ${
+            isOn ? "switch__text_farenheit_active" : ""
+          }`}
+        >
+          F
+        </p>
         <span className="switch__button" />
+        <p
+          className={`switch__text switch__text_celcius ${
+            isOn
+              ? "switch__text_celcius_active"
+              : "switch__text_celcius_inactive"
+          }`}
+        >
+          C
+        </p>
       </label>
     </>
   );

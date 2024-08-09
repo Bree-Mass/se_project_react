@@ -1,5 +1,6 @@
 import "../modals.css";
 import "./menuModal.css";
+import Switch from "../../Switch/Switch";
 
 function MenuModal({
   handleOpen,
@@ -7,6 +8,7 @@ function MenuModal({
   isOpen,
   avatarPlaceholder,
   menuModalRef,
+  isOn,
 }) {
   return (
     <div
@@ -31,6 +33,7 @@ function MenuModal({
         >
           + Add clothes
         </button>
+        <Switch isOn={isOn} />
       </div>
     </div>
   );

@@ -1,7 +1,13 @@
 import "../modals.css";
 import "./itemModal.css";
 
-function ItemModal({ card, isOpen, handleCloseModal, itemModalRef }) {
+function ItemModal({
+  card,
+  isOpen,
+  itemModalRef,
+  handleOpen,
+  handleCloseModal,
+}) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`} ref={itemModalRef}>
       <div className="modal__content modal__content_type_image">
@@ -16,8 +22,17 @@ function ItemModal({ card, isOpen, handleCloseModal, itemModalRef }) {
           className="modal__image"
         />
         <div className="modal__footer">
-          <h2 className="modal__footer_name">{card.name}</h2>
-          <p className="modal__footer_weather">Weather: {card.weather}</p>
+          <div>
+            <h2 className="modal__footer_name">{card.name}</h2>
+            <p className="modal__footer_weather">Weather: {card.weatherType}</p>
+          </div>
+          <button
+            id="confirm-modal"
+            className="modal__open_delete-modal-button"
+            onClick={handleOpen}
+          >
+            Delete item
+          </button>
         </div>
       </div>
     </div>

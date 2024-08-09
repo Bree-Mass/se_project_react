@@ -2,13 +2,7 @@ import Switch from "../Switch/Switch";
 import "./header.css";
 import logo from "../../assets/header_logo.svg";
 
-function Header({
-  weatherData,
-  handleOpen,
-  avatarPlaceholder,
-  isOn,
-  handleToggle,
-}) {
+function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",

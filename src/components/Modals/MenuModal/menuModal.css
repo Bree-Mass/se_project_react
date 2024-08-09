@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 208px;
+  height: 240px;
   max-width: 717px;
   width: calc(100% - 32px);
   margin-top: 18px;
@@ -48,6 +48,10 @@
   height: 24px;
   border: none;
   background-color: transparent;
-  margin: 24px 116px 60px 111px;
+  margin: 24px 116px 24px 111px;
   padding: 0;
+}
+
+.modal__switch_type_menu {
+  margin: 0;
 }

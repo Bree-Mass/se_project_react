@@ -19,6 +19,9 @@
 }
 
 .modal__footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 13px 0 0 28px;
   font-size: 20px;
   line-height: 1.2;
@@ -38,6 +41,15 @@
 
 .modal__footer_weather {
   margin: 0;
+}
+
+.modal__open_delete-modal-button {
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgb(255, 77, 0);
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 650px) {
@@ -66,8 +78,9 @@
   }
 
   .modal__footer {
-    margin: 20px 0 40px 20px;
-    gap: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px 20px 32px;
     font-size: 20px;
     line-height: 1.2;
   }
