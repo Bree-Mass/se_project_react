@@ -1,5 +1,5 @@
 import { memo } from "react";
-import "./footer.css";
+import "../blocks/footer.css";
 
 function Footer() {
   return (

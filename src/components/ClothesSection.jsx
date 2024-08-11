@@ -1,5 +1,5 @@
 import { memo } from "react";
-import "./clothesSection.css";
+import "../blocks/clothesSection.css";
 
 function ClothesSection({ clothingItems, renderCards, handleOpen }) {
   return (

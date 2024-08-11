@@ -1,8 +1,7 @@
 import { memo } from "react";
-import SideBar from "./SideBar/SideBar";
-import ClothesSection from "./ClothesSection/ClothesSection";
-
-import "./profile.css";
+import SideBar from "./SideBar";
+import ClothesSection from "./ClothesSection";
+import "../blocks/profile.css";
 
 function Profile({
   avatarPlaceholder,

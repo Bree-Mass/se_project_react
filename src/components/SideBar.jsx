@@ -1,5 +1,5 @@
 import { memo } from "react";
-import "./sideBar.css";
+import "../blocks/sideBar.css";
 
 function SideBar({ avatarPlaceholder }) {
   return (

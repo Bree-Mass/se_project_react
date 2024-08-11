@@ -52,7 +52,7 @@
 
 .header__menu_modal-button {
   cursor: pointer;
-  background: white no-repeat center url(../../assets/menu_icon.svg);
+  background: white no-repeat center url(../assets/menu_icon.svg);
   height: 44px;
   width: 44px;
   border: none;

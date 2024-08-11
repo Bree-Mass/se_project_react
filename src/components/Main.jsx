@@ -1,7 +1,7 @@
 import React from "react";
-import WeatherCard from "../WeatherCard/WeatherCard";
-import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
-import "./main.css";
+import WeatherCard from "./WeatherCard";
+import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
+import "../blocks/main.css";
 
 function Main({ filteredItems, weatherData, renderCards, handleRandomize }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);

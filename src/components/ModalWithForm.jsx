@@ -1,6 +1,6 @@
 import { memo } from "react";
-import "../modals.css";
-import "./modalWithForm.css";
+import "../blocks/modals.css";
+import "../blocks/modalWithForm.css";
 
 function ModalWithForm({
   children,

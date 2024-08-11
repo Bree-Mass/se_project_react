@@ -1,6 +1,6 @@
 import React from "react";
-import "../modals.css";
-import "./confirmationModal.css";
+import "../blocks/modals.css";
+import "../blocks/confirmationModal.css";
 
 function ConfirmationModal({
   card,

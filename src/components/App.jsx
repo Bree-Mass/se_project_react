@@ -1,21 +1,21 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import ItemCard from "../ItemCard/ItemCard";
-import Profile from "../Profile/Profile";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
-import MenuModal from "../MenuModal/MenuModal";
-import Footer from "../Footer/Footer";
-import avatarPlaceholder from "../../assets/avatar_placeholder.png";
-import { apiCall } from "../../utils/constants";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { getItems, postItem, deleteItem } from "../../utils/api";
-import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
-import { ApiCallContext } from "../../contexts/ApiCallContext";
-import "./app.css";
+import Header from "./Header";
+import Main from "./Main";
+import ItemCard from "./ItemCard";
+import Profile from "./Profile";
+import AddItemModal from "./AddItemModal";
+import ItemModal from "./ItemModal";
+import ConfirmationModal from "./ConfirmationModal";
+import MenuModal from "./MenuModal";
+import Footer from "./Footer";
+import avatarPlaceholder from "../assets/avatar_placeholder.png";
+import { apiCall } from "../utils/constants";
+import { getWeather, filterWeatherData } from "../utils/weatherApi";
+import { getItems, postItem, deleteItem } from "../utils/api";
+import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
+import { ApiCallContext } from "../contexts/ApiCallContext";
+import "../blocks/app.css";
 
 const App = () => {
   //// USE STATES ////

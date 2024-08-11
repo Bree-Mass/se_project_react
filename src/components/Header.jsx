@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import "./header.css";
-import logo from "../../assets/header_logo.svg";
+import ToggleSwitch from "./ToggleSwitch";
+import "../blocks/header.css";
+import logo from "../assets/header_logo.svg";
 
 function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   const currentDate = new Date().toLocaleString("default", {

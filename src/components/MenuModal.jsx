@@ -1,7 +1,7 @@
 import { memo } from "react";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import "../modals.css";
-import "./menuModal.css";
+import ToggleSwitch from "./ToggleSwitch";
+import "../blocks/modals.css";
+import "../blocks/menuModal.css";
 
 function MenuModal({
   handleOpen,

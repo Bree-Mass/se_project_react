@@ -1,6 +1,6 @@
 import { memo } from "react";
-import "../modals.css";
-import "./itemModal.css";
+import "../blocks/modals.css";
+import "../blocks/itemModal.css";
 
 function ItemModal({
   card,

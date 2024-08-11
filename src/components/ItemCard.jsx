@@ -1,5 +1,5 @@
 import { memo } from "react";
-import "./itemCard.css";
+import "../blocks/itemCard.css";
 
 function ItemCard({ item, onCardClick }) {
   const handleCardClick = () => {

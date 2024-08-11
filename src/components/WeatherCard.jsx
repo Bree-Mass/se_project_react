@@ -1,10 +1,10 @@
 import React from "react";
-import "./weatherCard.css";
+import "../blocks/weatherCard.css";
 import {
   weatherBackgrounds,
   defaultWeatherBackgrounds,
-} from "../../utils/constants";
-import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
+} from "../utils/constants";
+import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 
 function WeatherCard({ weatherData }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
