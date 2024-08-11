@@ -1,7 +1,7 @@
 import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import useFormAndValidation from "../../../hooks/useFormAndValidation";
-import { ApiCallContext } from "../../../contexts/ApiCallContext";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { ApiCallContext } from "../../contexts/ApiCallContext";
 
 function AddItemModal({
   activeModal,

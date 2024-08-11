@@ -1,5 +1,5 @@
 import { memo } from "react";
-import ToggleSwitch from "../../ToggleSwitch/ToggleSwitch";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import "../modals.css";
 import "./menuModal.css";
 
