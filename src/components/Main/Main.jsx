@@ -3,24 +3,13 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
 import "./main.css";
 
-function Main({
-  filteredItems,
-  weatherData,
-  handleCardRender,
-  handleRandomize,
-}) {
+function Main({ filteredItems, weatherData, renderCards, handleRandomize }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
-  const renderAllCards = (array) => {
-    return array.map((item) => {
-      return handleCardRender(item);
-    });
-  };
-
   // RERENDER //
   React.useEffect(() => {
-    renderAllCards(filteredItems);
+    renderCards(filteredItems);
   });
 
   // CHECK WINDOW SIZE //
@@ -42,8 +31,8 @@ function Main({
         </p>
         <ul className="main__cards-list">
           {windowWidth > 766
-            ? renderAllCards(filteredItems)
-            : renderAllCards(filteredItems.slice(0, 4))}
+            ? renderCards(filteredItems)
+            : renderCards(filteredItems.slice(0, 4))}
         </ul>
       </section>
       <button
@@ -57,4 +46,4 @@ function Main({
   );
 }
 
-export default Main;
+export default React.memo(Main);

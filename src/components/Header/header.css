@@ -5,7 +5,11 @@
   line-height: 1.2;
   height: 40px;
   min-width: 100%;
-  margin-bottom: 28px;
+  margin-bottom: 47px;
+}
+
+.header__logo {
+  height: 40px;
 }
 
 .header__info {
@@ -14,6 +18,7 @@
 }
 
 .header__date {
+  height: 24px;
   margin: 11px 0 4px;
 }
 
@@ -30,7 +35,7 @@
   cursor: pointer;
   border: none;
   background-color: transparent;
-  margin: 8px 0 8px 20px;
+  margin: 8px 0 8px 18px;
   font-size: 20px;
   line-height: 1.2;
   padding: 0;
@@ -59,28 +64,29 @@
   visibility: hidden;
 }
 
-.header__switch {
-  margin: auto 20px auto 0;
-}
-
 @media screen and (max-width: 766px) {
   .header {
-    height: 100px;
-    margin-bottom: 16px;
+    height: fit-content;
+    margin-bottom: 20px;
   }
 
   .header__info {
-    display: inline;
+    gap: 12px;
+    height: calc(fit-content + 4px);
   }
 
   .header__date {
-    margin-top: 32px;
+    font-size: 16px;
+    height: fit-content;
+    margin-top: 10px;
+    margin-right: 50px;
   }
 
   .header__interaction {
     visibility: hidden;
     flex-direction: column;
     position: absolute;
+    top: -50px;
   }
 
   .header__menu_modal-button {

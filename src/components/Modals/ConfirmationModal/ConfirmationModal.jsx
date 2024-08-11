@@ -1,3 +1,4 @@
+import React from "react";
 import "../modals.css";
 import "./confirmationModal.css";
 
@@ -41,4 +42,4 @@ function ConfirmationModal({
   );
 }
 
-export default ConfirmationModal;
+export default React.memo(ConfirmationModal);

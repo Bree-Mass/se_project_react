@@ -1,6 +1,7 @@
 import React from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../../hooks/useFormAndValidation";
+import { ApiCallContext } from "../../../contexts/ApiCallContext";
 
 function AddItemModal({
   activeModal,
@@ -10,6 +11,8 @@ function AddItemModal({
   formRef,
   handleCloseModal,
 }) {
+  const ApiContext = React.useContext(ApiCallContext);
+
   // import state for each input field from useFormAndValidation.js
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
@@ -35,8 +38,13 @@ function AddItemModal({
   };
 
   const handleFormSubmit = (evt) => {
+    // adds the item to the page on successful resonse from the server
     evt.preventDefault();
-    handleAddItem(values);
+    ApiContext.postItem(values)
+      .then(() => {
+        handleAddItem(values);
+      })
+      .catch(`Error: ${console.error}`);
     handleCloseModal();
   };
 
@@ -94,6 +102,8 @@ function AddItemModal({
           placeholder="Name"
           minLength="1"
           maxLength="30"
+          // onInput is used instead of onChange so that the
+          /// form validation works even when the form is autofilled
           onInput={handleTextChange}
           required
         />
@@ -153,4 +163,4 @@ function AddItemModal({
   );
 }
 
-export default AddItemModal;
+export default React.memo(AddItemModal);

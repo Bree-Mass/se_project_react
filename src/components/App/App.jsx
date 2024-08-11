@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import ItemCard from "../ItemCard/ItemCard";
@@ -11,9 +10,11 @@ import ConfirmationModal from "../Modals/ConfirmationModal/ConfirmationModal";
 import MenuModal from "../Modals/MenuModal/MenuModal";
 import Footer from "../Footer/Footer";
 import avatarPlaceholder from "../../assets/avatar_placeholder.png";
-import { apiCall, defaultClothingItems } from "../../utils/constants";
+import { apiCall } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+import { getItems, postItem, deleteItem } from "../../utils/api";
 import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
+import { ApiCallContext } from "../../contexts/ApiCallContext";
 import "./app.css";
 
 const App = () => {
@@ -28,8 +29,7 @@ const App = () => {
     weather: "",
   }); // sets all form elements with a default validation message
   const [currentTempUnit, setCurrentTempUnit] = React.useState("F");
-  const [clothingItems, setClothingItems] =
-    React.useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = React.useState([]);
   const [filteredItems, setFilteredItems] = React.useState([]);
 
   //// USE REFS ////
@@ -60,21 +60,26 @@ const App = () => {
   };
 
   const handleAddItem = (newItem) => {
-    const newItemWithId = { _id: uuidv4(), ...newItem };
-    setClothingItems((prevItems) => [newItemWithId, ...prevItems]);
+    setClothingItems((prevItems) => [newItem, ...prevItems]);
   };
 
-  const handleCardRender = (item) => {
-    return <ItemCard key={item._id} item={item} onCardClick={openModals} />;
+  const renderAllCards = (array) => {
+    return array.map((item) => {
+      return <ItemCard key={item._id} item={item} onCardClick={openModals} />;
+    });
   };
 
   const handleDelete = (itemToDelete) => {
-    // API call will be here
-    setClothingItems(
-      clothingItems.filter((item) => {
-        return item !== itemToDelete;
+    // deletes the item from the page on successful resonse from the server
+    deleteItem(itemToDelete._id)
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((item) => {
+            return item !== itemToDelete;
+          })
+        );
       })
-    );
+      .catch(`Error: ${console.error}`);
     closeModals();
   };
 
@@ -91,7 +96,10 @@ const App = () => {
   };
   const closeModals = () => {
     setActiveModal(null);
-    setSelectedCard({});
+    // set timeout so card wont visually change before the modal fades away
+    setTimeout(() => {
+      setSelectedCard({});
+    }, 400);
   };
 
   // MODAL //
@@ -136,6 +144,15 @@ const App = () => {
     setFilteredItems(handleFilter(clothingItems));
   }, [weatherData.type, clothingItems]);
 
+  // MOCK SERVER API //
+  React.useEffect(() => {
+    getItems()
+      .then((res) => {
+        setClothingItems(res);
+      })
+      .catch(console.error);
+  }, []);
+
   //// RETURN ELEMENT ////
 
   return (
@@ -144,60 +161,72 @@ const App = () => {
         <CurrentTempUnitContext.Provider
           value={{ currentTempUnit, handleToggleSwitchChange }}
         >
-          <div className="page__content">
-            <Header
-              weatherData={weatherData}
+          <ApiCallContext.Provider value={{ getItems, postItem, deleteItem }}>
+            <div className="page__content">
+              <Header
+                weatherData={weatherData}
+                handleOpen={openModals}
+                avatarPlaceholder={avatarPlaceholder}
+                isOn={isSwitchOn}
+              />
+              <Routes>
+                <Route
+                  path="/se_project_react/"
+                  element={
+                    <Main
+                      filteredItems={filteredItems}
+                      weatherData={weatherData}
+                      renderCards={renderAllCards}
+                      handleRandomize={handleRandomize}
+                    />
+                  }
+                />
+                <Route
+                  path="/se_project_react/profile"
+                  element={
+                    <Profile
+                      avatarPlaceholder={avatarPlaceholder}
+                      clothingItems={clothingItems}
+                      renderCards={renderAllCards}
+                      handleOpen={openModals}
+                    />
+                  }
+                />
+              </Routes>
+              <Footer />
+            </div>
+            <AddItemModal
+              activeModal={activeModal}
+              isOpen={activeModal === "add-modal"}
+              handleAddItem={handleAddItem}
+              addModalRef={addModalRef}
+              formRef={formRef}
+              handleCloseModal={closeModals}
+            />
+            <ItemModal
+              card={selectedCard}
+              isOpen={activeModal === "card-modal"}
+              itemModalRef={itemModalRef}
               handleOpen={openModals}
+              handleCloseModal={closeModals}
+            />
+            <ConfirmationModal
+              card={selectedCard}
+              isOpen={activeModal === "confirm-modal"}
+              confirmationModalRef={confirmationModalRef}
+              handleOpen={openModals}
+              handleCloseModal={closeModals}
+              handleDelete={handleDelete}
+            />
+            <MenuModal
+              menuModalRef={menuModalRef}
+              handleOpen={openModals}
+              handleCloseModal={closeModals}
+              isOpen={activeModal === "menu-modal"}
               avatarPlaceholder={avatarPlaceholder}
               isOn={isSwitchOn}
             />
-            <Routes>
-              <Route
-                path="/se_project_react/"
-                element={
-                  <Main
-                    filteredItems={filteredItems}
-                    weatherData={weatherData}
-                    handleCardRender={handleCardRender}
-                    handleRandomize={handleRandomize}
-                  />
-                }
-              />
-              <Route path="/se_project_react/profile" element={<Profile />} />
-            </Routes>
-            <Footer />
-          </div>
-          <AddItemModal
-            activeModal={activeModal}
-            isOpen={activeModal === "add-modal"}
-            handleAddItem={handleAddItem}
-            addModalRef={addModalRef}
-            formRef={formRef}
-            handleCloseModal={closeModals}
-          />
-          <ItemModal
-            card={selectedCard}
-            isOpen={activeModal === "card-modal"}
-            itemModalRef={itemModalRef}
-            handleOpen={openModals}
-            handleCloseModal={closeModals}
-          />
-          <ConfirmationModal
-            card={selectedCard}
-            isOpen={activeModal === "confirm-modal"}
-            confirmationModalRef={confirmationModalRef}
-            handleOpen={openModals}
-            handleCloseModal={closeModals}
-            handleDelete={handleDelete}
-          />
-          <MenuModal
-            menuModalRef={menuModalRef}
-            handleOpen={openModals}
-            handleCloseModal={closeModals}
-            isOpen={activeModal === "menu-modal"}
-            avatarPlaceholder={avatarPlaceholder}
-            isOn={isSwitchOn}
-          />
+          </ApiCallContext.Provider>
         </CurrentTempUnitContext.Provider>
       </div>
     </BrowserRouter>

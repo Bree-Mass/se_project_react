@@ -39,4 +39,4 @@ function WeatherCard({ weatherData }) {
   );
 }
 
-export default WeatherCard;
+export default React.memo(WeatherCard);

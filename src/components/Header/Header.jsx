@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Switch from "../Switch/Switch";
 import "./header.css";
 import logo from "../../assets/header_logo.svg";
@@ -43,4 +44,4 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   );
 }
 
-export default Header;
+export default memo(Header);

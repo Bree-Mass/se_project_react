@@ -186,10 +186,4 @@ const defaultWeatherBackgrounds = {
   },
 };
 
-export {
-  location,
-  apiCall,
-  defaultClothingItems,
-  weatherBackgrounds,
-  defaultWeatherBackgrounds,
-};
+export { location, apiCall, weatherBackgrounds, defaultWeatherBackgrounds };

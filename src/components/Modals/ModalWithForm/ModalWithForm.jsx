@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "../modals.css";
 import "./modalWithForm.css";
 
@@ -36,4 +37,4 @@ function ModalWithForm({
   );
 }
 
-export default ModalWithForm;
+export default memo(ModalWithForm);

@@ -1,6 +1,7 @@
+import { memo } from "react";
+import Switch from "../../Switch/Switch";
 import "../modals.css";
 import "./menuModal.css";
-import Switch from "../../Switch/Switch";
 
 function MenuModal({
   handleOpen,
@@ -39,4 +40,4 @@ function MenuModal({
   );
 }
 
-export default MenuModal;
+export default memo(MenuModal);

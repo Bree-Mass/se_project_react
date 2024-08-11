@@ -36,4 +36,4 @@ const Switch = ({ isOn }) => {
   );
 };
 
-export default Switch;
+export default React.memo(Switch);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "../modals.css";
 import "./itemModal.css";
 
@@ -39,4 +40,4 @@ function ItemModal({
   );
 }
 
-export default ItemModal;
+export default memo(ItemModal);
