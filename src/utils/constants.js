@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 // LOCATION
 const location = { latitude: 32.912163, longitude: -96.131226 };
 
