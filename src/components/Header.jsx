@@ -12,7 +12,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   return (
     <header className="header">
       <div className="header__info">
-        <Link to="/se_project_react/">
+        <Link to="/">
           <img className="header__logo" src={logo} alt="logo" />
         </Link>
         <p className="header__date">
@@ -29,7 +29,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
         >
           + Add clothes
         </button>
-        <Link to="/se_project_react/profile">
+        <Link to="/profile">
           <div className="header__user">
             <p className="header__username">Bree Massingill</p>
             <img
