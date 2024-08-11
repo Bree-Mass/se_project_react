@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import Switch from "../Switch/Switch";
 import "./header.css";
 import logo from "../../assets/header_logo.svg";
@@ -11,7 +12,9 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   return (
     <header className="header">
       <div className="header__info">
-        <img className="header__logo" src={logo} alt="logo" />
+        <Link to="/se_project_react/">
+          <img className="header__logo" src={logo} alt="logo" />
+        </Link>
         <p className="header__date">
           {currentDate}, {weatherData.city}
         </p>
@@ -26,14 +29,16 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
         >
           + Add clothes
         </button>
-        <div className="header__user">
-          <p className="header__username">Bree Massingill</p>
-          <img
-            className="header__avatar"
-            src={avatarPlaceholder}
-            alt="avatar"
-          />
-        </div>
+        <Link to="/se_project_react/profile">
+          <div className="header__user">
+            <p className="header__username">Bree Massingill</p>
+            <img
+              className="header__avatar"
+              src={avatarPlaceholder}
+              alt="avatar"
+            />
+          </div>
+        </Link>
       </div>
       <button
         id="menu-modal"
