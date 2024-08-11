@@ -1,8 +1,8 @@
 import React from "react";
 import { CurrentTempUnitContext } from "../../contexts/CurrentTempUnitContext";
-import "./switch.css";
+import "./toggleSwitch.css";
 
-const Switch = ({ isOn }) => {
+const ToggleSwitch = ({ isOn }) => {
   const CurrentTempContext = React.useContext(CurrentTempUnitContext);
   return (
     <>
@@ -36,4 +36,4 @@ const Switch = ({ isOn }) => {
   );
 };
 
-export default React.memo(Switch);
+export default React.memo(ToggleSwitch);

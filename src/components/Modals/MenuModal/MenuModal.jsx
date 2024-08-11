@@ -1,5 +1,5 @@
 import { memo } from "react";
-import Switch from "../../Switch/Switch";
+import ToggleSwitch from "../../ToggleSwitch/ToggleSwitch";
 import "../modals.css";
 import "./menuModal.css";
 
@@ -34,7 +34,7 @@ function MenuModal({
         >
           + Add clothes
         </button>
-        <Switch isOn={isOn} />
+        <ToggleSwitch isOn={isOn} />
       </div>
     </div>
   );

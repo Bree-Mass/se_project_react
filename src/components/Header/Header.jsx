@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import Switch from "../Switch/Switch";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import "./header.css";
 import logo from "../../assets/header_logo.svg";
 
@@ -20,7 +20,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
         </p>
       </div>
       <div className="header__interaction">
-        <Switch isOn={isOn} />
+        <ToggleSwitch isOn={isOn} />
         <button
           id="add-modal"
           className="header__add-button"
