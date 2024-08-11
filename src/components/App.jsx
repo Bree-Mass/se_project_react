@@ -171,7 +171,7 @@ const App = () => {
               />
               <Routes>
                 <Route
-                  path="/se_project_react/"
+                  path="/"
                   element={
                     <Main
                       filteredItems={filteredItems}
@@ -182,7 +182,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/se_project_react/profile"
+                  path="/profile"
                   element={
                     <Profile
                       avatarPlaceholder={avatarPlaceholder}
