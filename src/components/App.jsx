@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
-import ItemCard from "./ItemCard";
 import Profile from "./Profile";
 import AddItemModal from "./AddItemModal";
 import ItemModal from "./ItemModal";
