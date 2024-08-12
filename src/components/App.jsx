@@ -63,12 +63,6 @@ const App = () => {
     setClothingItems((prevItems) => [newItem, ...prevItems]);
   };
 
-  const renderAllCards = (array) => {
-    return array.map((item) => {
-      return <ItemCard key={item._id} item={item} onCardClick={openModals} />;
-    });
-  };
-
   const handleDelete = (itemToDelete) => {
     // deletes the item from the page on successful resonse from the server
     deleteItem(itemToDelete._id)
@@ -176,7 +170,6 @@ const App = () => {
                     <Main
                       filteredItems={filteredItems}
                       weatherData={weatherData}
-                      renderCards={renderAllCards}
                       handleRandomize={handleRandomize}
                     />
                   }
@@ -187,7 +180,6 @@ const App = () => {
                     <Profile
                       avatarPlaceholder={avatarPlaceholder}
                       clothingItems={clothingItems}
-                      renderCards={renderAllCards}
                       handleOpen={openModals}
                     />
                   }

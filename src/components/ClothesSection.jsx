@@ -1,7 +1,8 @@
 import { memo } from "react";
+import ItemCard from "./ItemCard";
 import "../blocks/clothesSection.css";
 
-function ClothesSection({ clothingItems, renderCards, handleOpen }) {
+function ClothesSection({ clothingItems, handleOpen }) {
   return (
     <div className="clothes">
       <div className="clothes__header">
@@ -16,7 +17,11 @@ function ClothesSection({ clothingItems, renderCards, handleOpen }) {
         </button>
       </div>
       <div className="clothes__wrapper">
-        <ul className="clothes__cards-list">{renderCards(clothingItems)}</ul>
+        <ul className="clothes__cards-list">
+          {clothingItems.map((item) => (
+            <ItemCard key={item._id} item={item} onCardClick={handleOpen} />
+          ))}
+        </ul>
       </div>
     </div>
   );

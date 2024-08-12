@@ -6,17 +6,13 @@ import "../blocks/profile.css";
 function Profile({
   avatarPlaceholder,
   clothingItems,
-  renderCards,
+
   handleOpen,
 }) {
   return (
     <div className="profile">
       <SideBar avatarPlaceholder={avatarPlaceholder} />
-      <ClothesSection
-        clothingItems={clothingItems}
-        renderCards={renderCards}
-        handleOpen={handleOpen}
-      />
+      <ClothesSection clothingItems={clothingItems} handleOpen={handleOpen} />
     </div>
   );
 }

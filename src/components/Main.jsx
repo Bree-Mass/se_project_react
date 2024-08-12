@@ -1,16 +1,12 @@
 import React from "react";
 import WeatherCard from "./WeatherCard";
+import ItemCard from "./ItemCard";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import "../blocks/main.css";
 
-function Main({ filteredItems, weatherData, renderCards, handleRandomize }) {
+function Main({ filteredItems, weatherData, handleRandomize }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-  // RERENDER //
-  React.useEffect(() => {
-    renderCards(filteredItems);
-  });
 
   // CHECK WINDOW SIZE //
   React.useEffect(() => {
@@ -31,8 +27,12 @@ function Main({ filteredItems, weatherData, renderCards, handleRandomize }) {
         </p>
         <ul className="main__cards-list">
           {windowWidth > 766
-            ? renderCards(filteredItems)
-            : renderCards(filteredItems.slice(0, 4))}
+            ? filteredItems.map((item) => (
+                <ItemCard key={item._id} item={item} />
+              ))
+            : filteredItems
+                .slice(0, 4)
+                .map((item) => <ItemCard key={item._id} item={item} />)}
         </ul>
       </section>
       <button
