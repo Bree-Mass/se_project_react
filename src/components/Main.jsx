@@ -4,7 +4,7 @@ import ItemCard from "./ItemCard";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import "../blocks/main.css";
 
-function Main({ filteredItems, weatherData, handleRandomize }) {
+function Main({ filteredItems, weatherData, handleRandomize, handleOpen }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
@@ -28,7 +28,7 @@ function Main({ filteredItems, weatherData, handleRandomize }) {
         <ul className="main__cards-list">
           {windowWidth > 766
             ? filteredItems.map((item) => (
-                <ItemCard key={item._id} item={item} />
+                <ItemCard key={item._id} item={item} onCardClick={handleOpen} />
               ))
             : filteredItems
                 .slice(0, 4)

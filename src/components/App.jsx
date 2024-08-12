@@ -171,6 +171,7 @@ const App = () => {
                       filteredItems={filteredItems}
                       weatherData={weatherData}
                       handleRandomize={handleRandomize}
+                      handleOpen={openModals}
                     />
                   }
                 />
