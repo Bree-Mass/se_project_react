@@ -46,4 +46,4 @@ function Main({ filteredItems, weatherData, handleRandomize, handleOpen }) {
   );
 }
 
-export default React.memo(Main);
+export default Main;

@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "./ToggleSwitch";
 import "../blocks/header.css";
@@ -49,4 +48,4 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
   );
 }
 
-export default memo(Header);
+export default Header;

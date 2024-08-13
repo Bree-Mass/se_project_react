@@ -36,4 +36,4 @@ const ToggleSwitch = ({ isOn }) => {
   );
 };
 
-export default React.memo(ToggleSwitch);
+export default ToggleSwitch;

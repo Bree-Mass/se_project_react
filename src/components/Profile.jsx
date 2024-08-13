@@ -1,4 +1,3 @@
-import { memo } from "react";
 import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/profile.css";
@@ -17,4 +16,4 @@ function Profile({
   );
 }
 
-export default memo(Profile);
+export default Profile;

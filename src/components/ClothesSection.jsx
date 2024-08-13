@@ -1,4 +1,3 @@
-import { memo } from "react";
 import ItemCard from "./ItemCard";
 import "../blocks/clothesSection.css";
 
@@ -27,4 +26,4 @@ function ClothesSection({ clothingItems, handleOpen }) {
   );
 }
 
-export default memo(ClothesSection);
+export default ClothesSection;

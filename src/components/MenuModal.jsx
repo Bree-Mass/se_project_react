@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { Link } from "react-router-dom";
 import ToggleSwitch from "./ToggleSwitch";
 import "../blocks/modals.css";
 import "../blocks/menuModal.css";
@@ -22,10 +22,16 @@ function MenuModal({
           type="button"
           onClick={handleCloseModal}
         />
-        <div className="modal__user">
-          <p className="modal__username">Bree Massingill</p>
-          <img className="modal__avatar" src={avatarPlaceholder} alt="avatar" />
-        </div>
+        <Link to="/profile">
+          <div className="modal__user">
+            <p className="modal__username">Bree Massingill</p>
+            <img
+              className="modal__avatar"
+              src={avatarPlaceholder}
+              alt="avatar"
+            />
+          </div>
+        </Link>
         <button
           id="add-modal"
           className="modal__add-button"
@@ -40,4 +46,4 @@ function MenuModal({
   );
 }
 
-export default memo(MenuModal);
+export default MenuModal;

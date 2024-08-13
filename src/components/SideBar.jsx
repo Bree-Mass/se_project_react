@@ -1,4 +1,3 @@
-import { memo } from "react";
 import "../blocks/sideBar.css";
 
 function SideBar({ avatarPlaceholder }) {
@@ -17,4 +16,4 @@ function SideBar({ avatarPlaceholder }) {
     </div>
   );
 }
-export default memo(SideBar);
+export default SideBar;
