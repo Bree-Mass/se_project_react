@@ -22,7 +22,7 @@ function MenuModal({
           type="button"
           onClick={handleCloseModal}
         />
-        <Link to="/profile">
+        <Link to="/profile" onClick={handleCloseModal}>
           <div className="modal__user">
             <p className="modal__username">Bree Massingill</p>
             <img
