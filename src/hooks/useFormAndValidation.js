@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 
 function useFormAndValidation() {
   const [values, setValues] = React.useState({});
@@ -11,7 +10,6 @@ function useFormAndValidation() {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
-      _id: prevValues._id || uuidv4(), // Create new _id if not already present
     }));
     setErrors({ ...errors, [name]: evt.target.validationMessage });
     setIsValid(evt.target.closest("form").checkValidity());

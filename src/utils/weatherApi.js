@@ -1,11 +1,7 @@
+import { request } from "./api";
+
 const getWeather = (apiCall) => {
-  return fetch(apiCall).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-  });
+  return request(apiCall);
 };
 
 const getWeatherType = (temp) => {

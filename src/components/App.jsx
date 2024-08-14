@@ -13,7 +13,6 @@ import { apiCall } from "../utils/constants";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
 import { getItems, postItem, deleteItem } from "../utils/api";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
-import { ApiCallContext } from "../contexts/ApiCallContext";
 import "../blocks/app.css";
 
 const App = () => {
@@ -59,7 +58,9 @@ const App = () => {
   };
 
   const handleAddItem = (newItem) => {
-    setClothingItems((prevItems) => [newItem, ...prevItems]);
+    return postItem(newItem).then(
+      setClothingItems((prevItems) => [newItem, ...prevItems])
+    );
   };
 
   const handleDelete = (itemToDelete) => {
@@ -72,7 +73,7 @@ const App = () => {
           })
         );
       })
-      .catch(`Error: ${console.error}`);
+      .catch(console.error);
     closeModals();
   };
 
@@ -154,71 +155,69 @@ const App = () => {
         <CurrentTempUnitContext.Provider
           value={{ currentTempUnit, handleToggleSwitchChange }}
         >
-          <ApiCallContext.Provider value={{ getItems, postItem, deleteItem }}>
-            <div className="page__content">
-              <Header
-                weatherData={weatherData}
-                handleOpen={openModals}
-                avatarPlaceholder={avatarPlaceholder}
-                isOn={isSwitchOn}
-              />
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      filteredItems={filteredItems}
-                      weatherData={weatherData}
-                      handleRandomize={handleRandomize}
-                      handleOpen={openModals}
-                    />
-                  }
-                />
-                <Route
-                  path="/profile"
-                  element={
-                    <Profile
-                      avatarPlaceholder={avatarPlaceholder}
-                      clothingItems={clothingItems}
-                      handleOpen={openModals}
-                    />
-                  }
-                />
-              </Routes>
-              <Footer />
-            </div>
-            <AddItemModal
-              activeModal={activeModal}
-              isOpen={activeModal === "add-modal"}
-              handleAddItem={handleAddItem}
-              addModalRef={addModalRef}
-              formRef={formRef}
-              handleCloseModal={closeModals}
-            />
-            <ItemModal
-              card={selectedCard}
-              isOpen={activeModal === "card-modal"}
-              itemModalRef={itemModalRef}
+          <div className="page__content">
+            <Header
+              weatherData={weatherData}
               handleOpen={openModals}
-              handleCloseModal={closeModals}
-            />
-            <ConfirmationModal
-              card={selectedCard}
-              isOpen={activeModal === "confirm-modal"}
-              confirmationModalRef={confirmationModalRef}
-              handleOpen={openModals}
-              handleCloseModal={closeModals}
-              handleDelete={handleDelete}
-            />
-            <MenuModal
-              menuModalRef={menuModalRef}
-              handleOpen={openModals}
-              handleCloseModal={closeModals}
-              isOpen={activeModal === "menu-modal"}
               avatarPlaceholder={avatarPlaceholder}
               isOn={isSwitchOn}
             />
-          </ApiCallContext.Provider>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    filteredItems={filteredItems}
+                    weatherData={weatherData}
+                    handleRandomize={handleRandomize}
+                    handleOpen={openModals}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <Profile
+                    avatarPlaceholder={avatarPlaceholder}
+                    clothingItems={clothingItems}
+                    handleOpen={openModals}
+                  />
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
+          <AddItemModal
+            activeModal={activeModal}
+            isOpen={activeModal === "add-modal"}
+            handleAddItem={handleAddItem}
+            addModalRef={addModalRef}
+            formRef={formRef}
+            handleCloseModal={closeModals}
+          />
+          <ItemModal
+            card={selectedCard}
+            isOpen={activeModal === "card-modal"}
+            itemModalRef={itemModalRef}
+            handleOpen={openModals}
+            handleCloseModal={closeModals}
+          />
+          <ConfirmationModal
+            card={selectedCard}
+            isOpen={activeModal === "confirm-modal"}
+            confirmationModalRef={confirmationModalRef}
+            handleOpen={openModals}
+            handleCloseModal={closeModals}
+            handleDelete={handleDelete}
+          />
+          <MenuModal
+            menuModalRef={menuModalRef}
+            handleOpen={openModals}
+            handleCloseModal={closeModals}
+            isOpen={activeModal === "menu-modal"}
+            avatarPlaceholder={avatarPlaceholder}
+            isOn={isSwitchOn}
+          />
         </CurrentTempUnitContext.Provider>
       </div>
     </BrowserRouter>

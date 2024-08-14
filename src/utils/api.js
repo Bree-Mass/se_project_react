@@ -8,9 +8,7 @@ const checkResponse = (res) => {
 };
 
 const request = (url, options) => {
-  return fetch(url, options)
-    .then(checkResponse)
-    .catch((err) => console.error(`Error: ${err}`));
+  return fetch(url, options).then(checkResponse);
 };
 
 const getItems = () => {
@@ -36,4 +34,4 @@ const deleteItem = (_id) => {
   });
 };
 
-export { getItems, postItem, deleteItem };
+export { request, getItems, postItem, deleteItem };
