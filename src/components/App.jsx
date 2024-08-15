@@ -72,9 +72,9 @@ const App = () => {
             return item !== itemToDelete;
           })
         );
+        closeModals();
       })
       .catch(console.error);
-    closeModals();
   };
 
   //// HANDLE MODALS ////

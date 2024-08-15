@@ -20,11 +20,11 @@ function AddItemModal({
     // adds the item to the page on successful resonse from the server
     evt.preventDefault();
     const valuesWithId = { _id: uuidv4(), ...values };
-    handleAddItem(valuesWithId).then(handleCloseModal()).catch(console.error);
+    handleAddItem(valuesWithId).then(handleCloseModal).catch(console.error);
   };
 
   const handleFormReset = () => {
-    if (activeModal === "add-modal") {
+    if (isOpen) {
       resetForm();
     }
   };
