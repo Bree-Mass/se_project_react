@@ -7,7 +7,9 @@ import AddItemModal from "./AddItemModal";
 import ItemModal from "./ItemModal";
 import ConfirmationModal from "./ConfirmationModal";
 import MenuModal from "./MenuModal";
+import RegisterModal from "./RegisterModal";
 import Footer from "./Footer";
+import ProtectedRoute from "./ProtectedRoute";
 import avatarPlaceholder from "../assets/avatar_placeholder.png";
 import { apiCall } from "../utils/constants";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
@@ -17,6 +19,7 @@ import "../blocks/app.css";
 
 const App = () => {
   //// USE STATES ////
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [activeModal, setActiveModal] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
@@ -37,6 +40,13 @@ const App = () => {
   const itemModalRef = React.useRef(null);
   const confirmationModalRef = React.useRef(null);
   const menuModalRef = React.useRef(null);
+  const registerModalRef = React.useRef(null);
+
+  //// REGISTRATION ////
+
+  const handleRegistration = (values) => {};
+
+  //// AUTHORIZATION ////
 
   //// HANDLE SWITCHES ////
 
@@ -44,10 +54,12 @@ const App = () => {
     currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
     setIsSwitchOn(!isSwitchOn);
   };
+
   //// CARDS ////
+
   const handleFilter = (array) => {
     return array.filter((item) => {
-      return item.weatherType === weatherData.type;
+      return item.weather === weatherData.type;
     });
   };
 
@@ -142,7 +154,7 @@ const App = () => {
   React.useEffect(() => {
     getItems()
       .then((res) => {
-        setClothingItems(res);
+        setClothingItems(res.data);
       })
       .catch(console.error);
   }, []);
@@ -177,11 +189,13 @@ const App = () => {
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    avatarPlaceholder={avatarPlaceholder}
-                    clothingItems={clothingItems}
-                    handleOpen={openModals}
-                  />
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      avatarPlaceholder={avatarPlaceholder}
+                      clothingItems={clothingItems}
+                      handleOpen={openModals}
+                    />
+                  </ProtectedRoute>
                 }
               />
             </Routes>
@@ -189,24 +203,23 @@ const App = () => {
           </div>
           <AddItemModal
             activeModal={activeModal}
-            isOpen={activeModal === "add-modal"}
-            handleAddItem={handleAddItem}
             addModalRef={addModalRef}
             formRef={formRef}
+            isOpen={activeModal === "add-modal"}
+            handleAddItem={handleAddItem}
             handleCloseModal={closeModals}
           />
           <ItemModal
             card={selectedCard}
-            isOpen={activeModal === "card-modal"}
             itemModalRef={itemModalRef}
+            isOpen={activeModal === "card-modal"}
             handleOpen={openModals}
             handleCloseModal={closeModals}
           />
           <ConfirmationModal
             card={selectedCard}
-            isOpen={activeModal === "confirm-modal"}
             confirmationModalRef={confirmationModalRef}
-            handleOpen={openModals}
+            isOpen={activeModal === "confirm-modal"}
             handleCloseModal={closeModals}
             handleDelete={handleDelete}
           />
@@ -217,6 +230,14 @@ const App = () => {
             isOpen={activeModal === "menu-modal"}
             avatarPlaceholder={avatarPlaceholder}
             isOn={isSwitchOn}
+          />
+          <RegisterModal
+            activeModal={activeModal}
+            registerModalRef={registerModalRef}
+            formRef={formRef}
+            isOpen={activeModal === "register-modal"}
+            handleCloseModal={closeModals}
+            handleRegistration={handleRegistration}
           />
         </CurrentTempUnitContext.Provider>
       </div>

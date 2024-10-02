@@ -16,7 +16,7 @@ function AddItemModal({
     useFormAndValidation();
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
-  const handleFormSubmit = (evt) => {
+  const handleAddItemSubmit = (evt) => {
     // adds the item to the page on successful resonse from the server
     evt.preventDefault();
     const valuesWithId = { _id: uuidv4(), ...values };
@@ -48,7 +48,7 @@ function AddItemModal({
       formRef={formRef}
       handleCloseModal={handleCloseModal}
       isButtonDisabled={isButtonDisabled}
-      handleSubmit={handleFormSubmit}
+      handleSubmit={handleAddItemSubmit}
     >
       <label
         className={`modal__label ${errors.name ? "modal__error" : ""}`}
@@ -56,7 +56,7 @@ function AddItemModal({
       >
         Name*
         <input
-          className="modal__input modal__input_name "
+          className="modal__input modal__input_name"
           type="text"
           name="name"
           id="name"
@@ -76,26 +76,26 @@ function AddItemModal({
         </span>
       </label>
       <label
-        className={`modal__label ${errors.link ? "modal__error" : ""}`}
+        className={`modal__label ${errors.imageUrl ? "modal__error" : ""}`}
         htmlFor="imageUrl"
       >
         Image*
         <input
           className="modal__input  modal__input_url"
           type="url"
-          name="link"
+          name="imageUrl"
           id="imageUrl"
-          value={values.link || ""}
+          value={values.imageUrl || ""}
           placeholder="Image URL"
           onChange={handleChange}
           required
         />
         <span
           className={`modal__validation ${
-            errors.link ? "modal__validation_visible" : ""
+            errors.imageUrl ? "modal__validation_visible" : ""
           }`}
         >
-          ({errors.link})
+          ({errors.imageUrl})
         </span>
       </label>
       <fieldset className="modal__radio-buttons">
@@ -105,7 +105,7 @@ function AddItemModal({
             className="modal__input modal__input_radio"
             type="radio"
             id="choiceHot"
-            name="weatherType"
+            name="weather"
             value="hot"
             onChange={handleChange}
             required
@@ -117,7 +117,7 @@ function AddItemModal({
             className="modal__input modal__input_radio"
             type="radio"
             id="choiceWarm"
-            name="weatherType"
+            name="weather"
             value="warm"
             onChange={handleChange}
           />
@@ -128,7 +128,7 @@ function AddItemModal({
             className="modal__input modal__input_radio"
             type="radio"
             id="choiceCold"
-            name="weatherType"
+            name="weather"
             value="cold"
             onChange={handleChange}
           />

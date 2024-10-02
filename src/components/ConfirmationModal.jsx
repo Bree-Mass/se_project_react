@@ -1,4 +1,3 @@
-import React from "react";
 import "../blocks/modals.css";
 import "../blocks/confirmationModal.css";
 

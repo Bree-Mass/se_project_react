@@ -15,13 +15,13 @@ const getItems = () => {
   return request(`${baseUrl}/items`);
 };
 
-const postItem = ({ _id, name, weatherType, link }) => {
+const postItem = ({ _id, name, weather, imageUrl }) => {
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ _id, name, weatherType, link }),
+    body: JSON.stringify({ _id, name, weather, imageUrl }),
   });
 };
 

@@ -17,14 +17,14 @@ function ItemModal({
           onClick={handleCloseModal}
         />
         <img
-          src={card.link}
+          src={card.imageUrl}
           alt={`Image of ${card.name}`}
           className="modal__image"
         />
         <div className="modal__footer">
           <div>
             <h2 className="modal__footer_name">{card.name}</h2>
-            <p className="modal__footer_weather">Weather: {card.weatherType}</p>
+            <p className="modal__footer_weather">Weather: {card.weather}</p>
           </div>
           <button
             id="confirm-modal"
