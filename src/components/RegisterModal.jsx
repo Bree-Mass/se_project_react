@@ -14,6 +14,7 @@ function RegisterModal({
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
+  let shortError = "";
 
   const handleRegisterSubmit = (evt) => {
     evt.preventDefault();
@@ -33,6 +34,10 @@ function RegisterModal({
   React.useEffect(() => {
     handleFormReset();
   }, [activeModal]);
+
+  //   React.useEffect(() => {
+  //     shortError = errors.email.slice(0, 43);
+  //   }, [errors.email]);
 
   return (
     <ModalWithForm
@@ -67,7 +72,7 @@ function RegisterModal({
             errors.email ? "modal__validation_visible" : ""
           }`}
         >
-          ({errors.email.slice(0, 43)})
+          ({errors.email})
         </span>
       </label>
       <label

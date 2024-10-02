@@ -7,11 +7,12 @@ function useFormAndValidation() {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
+    const shortenedError = evt.target.validationMessage.slice(0, 43);
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
-    setErrors({ ...errors, [name]: evt.target.validationMessage });
+    setErrors({ ...errors, [name]: shortenedError });
     setIsValid(evt.target.closest("form").checkValidity());
   };
 
