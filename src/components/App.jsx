@@ -8,6 +8,7 @@ import ItemModal from "./ItemModal";
 import ConfirmationModal from "./ConfirmationModal";
 import MenuModal from "./MenuModal";
 import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
 import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import avatarPlaceholder from "../assets/avatar_placeholder.png";
@@ -15,6 +16,8 @@ import { apiCall } from "../utils/constants";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
 import { getItems, postItem, deleteItem } from "../utils/api";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
+import { ModalContext } from "../contexts/ModalContext";
+import { UseRefContext } from "../contexts/UseRefContext";
 import "../blocks/app.css";
 
 const App = () => {
@@ -36,15 +39,18 @@ const App = () => {
   //// USE REFS ////
 
   const formRef = React.useRef(null);
-  const addModalRef = React.useRef(null);
+  const addItemModalRef = React.useRef(null);
   const itemModalRef = React.useRef(null);
   const confirmationModalRef = React.useRef(null);
   const menuModalRef = React.useRef(null);
   const registerModalRef = React.useRef(null);
+  const loginModalRef = React.useRef(null);
 
-  //// REGISTRATION ////
+  //// REGISTRATION AND LOGIN ////
 
   const handleRegistration = (values) => {};
+
+  const handleLogin = (values) => {};
 
   //// AUTHORIZATION ////
 
@@ -78,13 +84,15 @@ const App = () => {
   const handleDelete = (itemToDelete) => {
     // deletes the item from the page on successful resonse from the server
     deleteItem(itemToDelete._id)
-      .then(() => {
-        setClothingItems(
-          clothingItems.filter((item) => {
-            return item !== itemToDelete;
-          })
-        );
-        closeModals();
+      .then((res) => {
+        if (res.ok) {
+          setClothingItems(
+            clothingItems.filter((item) => {
+              return item !== itemToDelete;
+            })
+          );
+          closeModals();
+        }
       })
       .catch(console.error);
   };
@@ -114,9 +122,11 @@ const App = () => {
     const handleOutsideClick = (evt) => {
       if (
         evt.target === itemModalRef.current ||
-        evt.target === addModalRef.current ||
+        evt.target === addItemModalRef.current ||
         evt.target === menuModalRef.current ||
-        evt.target === confirmationModalRef.current
+        evt.target === confirmationModalRef.current ||
+        evt.target === registerModalRef.current ||
+        evt.target === loginModalRef.current
       ) {
         closeModals();
       }
@@ -167,78 +177,83 @@ const App = () => {
         <CurrentTempUnitContext.Provider
           value={{ currentTempUnit, handleToggleSwitchChange }}
         >
-          <div className="page__content">
-            <Header
-              weatherData={weatherData}
-              handleOpen={openModals}
-              avatarPlaceholder={avatarPlaceholder}
-              isOn={isSwitchOn}
-            />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    filteredItems={filteredItems}
-                    weatherData={weatherData}
-                    handleRandomize={handleRandomize}
-                    handleOpen={openModals}
+          <ModalContext.Provider
+            value={{ activeModal, openModals, closeModals }}
+          >
+            <UseRefContext.Provider
+              value={{
+                formRef,
+                itemModalRef,
+                addItemModalRef,
+                menuModalRef,
+                confirmationModalRef,
+                registerModalRef,
+                loginModalRef,
+              }}
+            >
+              <div className="page__content">
+                <Header
+                  weatherData={weatherData}
+                  handleOpen={openModals}
+                  avatarPlaceholder={avatarPlaceholder}
+                  isOn={isSwitchOn}
+                />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Main
+                        filteredItems={filteredItems}
+                        weatherData={weatherData}
+                        handleRandomize={handleRandomize}
+                        handleOpen={openModals}
+                      />
+                    }
                   />
-                }
+                  <Route
+                    path="/profile"
+                    element={
+                      <ProtectedRoute isLoggedIn={isLoggedIn}>
+                        <Profile
+                          avatarPlaceholder={avatarPlaceholder}
+                          clothingItems={clothingItems}
+                          handleOpen={openModals}
+                        />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Routes>
+                <Footer />
+              </div>
+
+              <AddItemModal
+                isOpen={activeModal === "add-modal"}
+                handleAddItem={handleAddItem}
               />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Profile
-                      avatarPlaceholder={avatarPlaceholder}
-                      clothingItems={clothingItems}
-                      handleOpen={openModals}
-                    />
-                  </ProtectedRoute>
-                }
+              <ItemModal
+                isOpen={activeModal === "card-modal"}
+                card={selectedCard}
               />
-            </Routes>
-            <Footer />
-          </div>
-          <AddItemModal
-            activeModal={activeModal}
-            addModalRef={addModalRef}
-            formRef={formRef}
-            isOpen={activeModal === "add-modal"}
-            handleAddItem={handleAddItem}
-            handleCloseModal={closeModals}
-          />
-          <ItemModal
-            card={selectedCard}
-            itemModalRef={itemModalRef}
-            isOpen={activeModal === "card-modal"}
-            handleOpen={openModals}
-            handleCloseModal={closeModals}
-          />
-          <ConfirmationModal
-            card={selectedCard}
-            confirmationModalRef={confirmationModalRef}
-            isOpen={activeModal === "confirm-modal"}
-            handleCloseModal={closeModals}
-            handleDelete={handleDelete}
-          />
-          <MenuModal
-            menuModalRef={menuModalRef}
-            handleOpen={openModals}
-            handleCloseModal={closeModals}
-            isOpen={activeModal === "menu-modal"}
-            avatarPlaceholder={avatarPlaceholder}
-            isOn={isSwitchOn}
-          />
-          <RegisterModal
-            activeModal={activeModal}
-            registerModalRef={registerModalRef}
-            formRef={formRef}
-            isOpen={activeModal === "register-modal"}
-            handleCloseModal={closeModals}
-            handleRegistration={handleRegistration}
-          />
+              <ConfirmationModal
+                isOpen={activeModal === "confirm-modal"}
+                card={selectedCard}
+                handleDelete={handleDelete}
+              />
+              <MenuModal
+                isOpen={activeModal === "menu-modal"}
+                avatarPlaceholder={avatarPlaceholder}
+                isOn={isSwitchOn}
+              />
+              <RegisterModal
+                isOpen={activeModal === "register-modal"}
+                handleRegistration={handleRegistration}
+              />
+              <LoginModal
+                isOpen={activeModal === "login-modal"}
+                handleLogin={handleLogin}
+              />
+            </UseRefContext.Provider>
+          </ModalContext.Provider>
         </CurrentTempUnitContext.Provider>
       </div>
     </BrowserRouter>

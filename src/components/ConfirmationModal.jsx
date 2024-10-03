@@ -1,23 +1,23 @@
+import React from "react";
+import { ModalContext } from "../contexts/ModalContext";
+import { UseRefContext } from "../contexts/UseRefContext";
 import "../blocks/modals.css";
 import "../blocks/confirmationModal.css";
 
-function ConfirmationModal({
-  card,
-  isOpen,
-  handleCloseModal,
-  confirmationModalRef,
-  handleDelete,
-}) {
+function ConfirmationModal({ isOpen, card, handleDelete }) {
+  const ConfirmationModalContext = React.useContext(ModalContext);
+  const RefContext = React.useContext(UseRefContext);
+
   return (
     <div
       className={`modal ${isOpen ? "modal_opened" : ""}`}
-      ref={confirmationModalRef}
+      ref={RefContext.confirmationModalRef}
     >
       <div className="modal__content modal__content_type_confirm">
         <button
           className="modal__close-button modal__close-button_type_image"
           type="button"
-          onClick={handleCloseModal}
+          onClick={ConfirmationModalContext.closeModals}
         />
         <p className="modal__confirmation-text">
           Are you sure you want to delete this item?
@@ -32,7 +32,7 @@ function ConfirmationModal({
         </button>
         <button
           className="modal__delete-button modal__delete-button_cancel"
-          onClick={handleCloseModal}
+          onClick={ConfirmationModalContext.closeModals}
         >
           Cancel
         </button>

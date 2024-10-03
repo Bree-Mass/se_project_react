@@ -1,16 +1,11 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
-function AddItemModal({
-  activeModal,
-  isOpen,
-  handleAddItem,
-  addModalRef,
-  formRef,
-  handleCloseModal,
-}) {
+function AddItemModal({ isOpen, handleAddItem }) {
+  const AddItemModalContext = React.useContext(ModalContext);
   // import state for each input field from useFormAndValidation.js
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
@@ -20,7 +15,13 @@ function AddItemModal({
     // adds the item to the page on successful resonse from the server
     evt.preventDefault();
     const valuesWithId = { _id: uuidv4(), ...values };
-    handleAddItem(valuesWithId).then(handleCloseModal).catch(console.error);
+    handleAddItem(valuesWithId)
+      .then((res) => {
+        if (res.ok) {
+          AddItemModalContext.closeModals;
+        }
+      })
+      .catch(console.error);
   };
 
   const handleFormReset = () => {
@@ -33,20 +34,18 @@ function AddItemModal({
 
   React.useEffect(() => {
     setIsButtonDisabled(!isValid);
-  }, [isValid, activeModal]);
+  }, [isValid, AddItemModalContext.activeModal]);
 
   React.useEffect(() => {
     handleFormReset();
-  }, [activeModal]);
+  }, [AddItemModalContext.activeModal]);
 
   return (
     <ModalWithForm
       titleText="New garment"
       buttonText="Add garment"
+      modalRefType="addItem"
       isOpen={isOpen}
-      addModalRef={addModalRef}
-      formRef={formRef}
-      handleCloseModal={handleCloseModal}
       isButtonDisabled={isButtonDisabled}
       handleSubmit={handleAddItemSubmit}
     >

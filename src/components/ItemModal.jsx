@@ -1,20 +1,23 @@
+import React from "react";
+import { ModalContext } from "../contexts/ModalContext";
+import { UseRefContext } from "../contexts/UseRefContext";
 import "../blocks/modals.css";
 import "../blocks/itemModal.css";
 
-function ItemModal({
-  card,
-  isOpen,
-  itemModalRef,
-  handleOpen,
-  handleCloseModal,
-}) {
+function ItemModal({ isOpen, card }) {
+  const ItemModalContext = React.useContext(ModalContext);
+  const RefContext = React.useContext(UseRefContext);
+
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`} ref={itemModalRef}>
+    <div
+      className={`modal ${isOpen ? "modal_opened" : ""}`}
+      ref={RefContext.itemModalRef}
+    >
       <div className="modal__content modal__content_type_image">
         <button
           className="modal__close-button modal__close-button_type_image"
           type="button"
-          onClick={handleCloseModal}
+          onClick={ItemModalContext.closeModals}
         />
         <img
           src={card.imageUrl}
@@ -29,7 +32,7 @@ function ItemModal({
           <button
             id="confirm-modal"
             className="modal__open_delete-modal-button"
-            onClick={handleOpen}
+            onClick={ItemModalContext.openModals}
           >
             Delete item
           </button>

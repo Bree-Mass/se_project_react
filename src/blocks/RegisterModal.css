@@ -1,7 +1,28 @@
+.modal__content_type_form {
+  height: 456px;
+}
+
 .modal__validation_register-password {
   left: 81px;
 }
 
 .modal__validation_register-avatar {
   left: 92px;
+}
+
+.modal__button_type_login {
+  position: absolute;
+  left: 126px;
+  bottom: 46px;
+  background: none;
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  width: fit fit-content;
+  height: 20px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.modal__button_type_login:hover {
+  color: rgba(0, 0, 0, 1);
 }
