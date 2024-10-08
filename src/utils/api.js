@@ -15,23 +15,25 @@ const getItems = () => {
   return request(`${baseUrl}/items`);
 };
 
-const postItem = ({ _id, name, weather, imageUrl }) => {
+const postItem = ({ _id, name, weather, imageUrl }, token) => {
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ _id, name, weather, imageUrl }),
   });
 };
 
-const deleteItem = (_id) => {
+const deleteItem = (_id, token) => {
   return request(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
-    header: {
+    headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
   });
 };
 
-export { request, getItems, postItem, deleteItem };
+export { baseUrl, request, getItems, postItem, deleteItem };

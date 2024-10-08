@@ -1,33 +1,16 @@
 import React from "react";
-import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/LoginModal.css";
 
 function LoginModal({ isOpen, handleLogin }) {
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
-  const LoginModalContext = React.useContext(ModalContext);
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
+  const { values, handleChange, errors, isButtonDisabled } =
+    useFormAndValidation(isOpen);
 
   const handleLoginSubmit = (evt) => {
     evt.preventDefault();
     handleLogin(values);
   };
-
-  const handleFormReset = () => {
-    if (isOpen) {
-      resetForm();
-    }
-  };
-
-  React.useEffect(() => {
-    setIsButtonDisabled(!isValid);
-  }, [isValid, LoginModalContext.activeModal]);
-
-  React.useEffect(() => {
-    handleFormReset();
-  }, [LoginModalContext.activeModal]);
 
   return (
     <ModalWithForm

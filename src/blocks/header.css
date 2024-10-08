@@ -27,6 +27,11 @@
   align-items: center;
 }
 
+.header__link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .header__user {
   display: flex;
 }
@@ -41,13 +46,34 @@
   padding: 0;
 }
 
+.header__add-button:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
 .header__username {
   margin: 8px 12px 8px 20px;
+}
+
+.header__username:hover {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .header__avatar {
   height: 40px;
   width: 40px;
+}
+
+.header__avatar_placeholder {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .header__menu_modal-button {

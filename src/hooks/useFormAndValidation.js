@@ -1,13 +1,15 @@
 import React from "react";
 
-function useFormAndValidation() {
+function useFormAndValidation(isOpen) {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    const shortenedError = evt.target.validationMessage.slice(0, 43);
+    const { name, value, validationMessage } = evt.target;
+    const shortenedError = validationMessage.slice(0, 43);
+
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -22,8 +24,18 @@ function useFormAndValidation() {
       setErrors(newErrors);
       setIsValid(newIsValid);
     },
-    [setValues, setErrors, setIsValid]
+    []
   );
+
+  React.useEffect(() => {
+    setIsButtonDisabled(!isValid);
+  }, [isValid]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen, resetForm]);
 
   return {
     values,
@@ -31,8 +43,7 @@ function useFormAndValidation() {
     errors,
     isValid,
     resetForm,
-    setValues,
-    setIsValid,
+    isButtonDisabled,
   };
 }
 

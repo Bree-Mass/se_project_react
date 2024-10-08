@@ -1,34 +1,16 @@
 import React from "react";
-import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/RegisterModal.css";
 
 function RegisterModal({ isOpen, handleRegistration }) {
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
-  const RegisterModalContext = React.useContext(ModalContext);
-
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
+  const { values, handleChange, errors, isButtonDisabled } =
+    useFormAndValidation(isOpen);
 
   const handleRegisterSubmit = (evt) => {
     evt.preventDefault();
     handleRegistration(values);
   };
-
-  const handleFormReset = () => {
-    if (isOpen) {
-      resetForm();
-    }
-  };
-
-  React.useEffect(() => {
-    setIsButtonDisabled(!isValid);
-  }, [isValid, RegisterModalContext.activeModal]);
-
-  React.useEffect(() => {
-    handleFormReset();
-  }, [RegisterModalContext.activeModal]);
 
   return (
     <ModalWithForm
@@ -88,7 +70,7 @@ function RegisterModal({ isOpen, handleRegistration }) {
         </span>
       </label>
       <label
-        className={`modal__label ${errors.registerName ? "modal__error" : ""}`}
+        className={`modal__label ${errors.name ? "modal__error" : ""}`}
         htmlFor="name-register"
       >
         Name*
@@ -97,7 +79,7 @@ function RegisterModal({ isOpen, handleRegistration }) {
           type="text"
           name="name"
           id="name-register"
-          value={values.registerName || ""}
+          value={values.name || ""}
           placeholder="Name"
           minLength="1"
           maxLength="30"
@@ -106,33 +88,33 @@ function RegisterModal({ isOpen, handleRegistration }) {
         />
         <span
           className={`modal__validation ${
-            errors.registerName ? "modal__validation_visible" : ""
+            errors.name ? "modal__validation_visible" : ""
           }`}
         >
-          ({errors.registerName})
+          ({errors.name})
         </span>
       </label>
       <label
-        className={`modal__label ${errors.avatarUrl ? "modal__error" : ""}`}
+        className={`modal__label ${errors.avatar ? "modal__error" : ""}`}
         htmlFor="avatarUrl-register"
       >
         Avatar URL*
         <input
           className="modal__input  modal__input_url"
           type="url"
-          name="avatarUrl"
+          name="avatar"
           id="avatarUrl-register"
-          value={values.avatarUrl || ""}
+          value={values.avatar || ""}
           placeholder="Avatar URL"
           onChange={handleChange}
           required
         />
         <span
           className={`modal__validation ${
-            errors.avatarUrl ? "modal__validation_visible" : ""
+            errors.avatar ? "modal__validation_visible" : ""
           } modal__validation_register-avatar`}
         >
-          ({errors.avatarUrl})
+          ({errors.avatar})
         </span>
       </label>
       <button className="modal__button_type_login" type="button">

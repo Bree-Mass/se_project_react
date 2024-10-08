@@ -1,44 +1,17 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function AddItemModal({ isOpen, handleAddItem }) {
-  const AddItemModalContext = React.useContext(ModalContext);
-  // import state for each input field from useFormAndValidation.js
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
-  const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
+  const { values, handleChange, errors, isButtonDisabled } =
+    useFormAndValidation(isOpen);
 
   const handleAddItemSubmit = (evt) => {
-    // adds the item to the page on successful resonse from the server
     evt.preventDefault();
     const valuesWithId = { _id: uuidv4(), ...values };
-    handleAddItem(valuesWithId)
-      .then((res) => {
-        if (res.ok) {
-          AddItemModalContext.closeModals;
-        }
-      })
-      .catch(console.error);
+    handleAddItem(valuesWithId);
   };
-
-  const handleFormReset = () => {
-    if (isOpen) {
-      resetForm();
-    }
-  };
-
-  //// USE EFFECTS ////
-
-  React.useEffect(() => {
-    setIsButtonDisabled(!isValid);
-  }, [isValid, AddItemModalContext.activeModal]);
-
-  React.useEffect(() => {
-    handleFormReset();
-  }, [AddItemModalContext.activeModal]);
 
   return (
     <ModalWithForm
@@ -106,6 +79,7 @@ function AddItemModal({ isOpen, handleAddItem }) {
             id="choiceHot"
             name="weather"
             value="hot"
+            checked={values.weather === "hot"}
             onChange={handleChange}
             required
           />
@@ -118,6 +92,7 @@ function AddItemModal({ isOpen, handleAddItem }) {
             id="choiceWarm"
             name="weather"
             value="warm"
+            checked={values.weather === "warm"}
             onChange={handleChange}
           />
           <span className="modal__label_span">Warm</span>
@@ -129,6 +104,7 @@ function AddItemModal({ isOpen, handleAddItem }) {
             id="choiceCold"
             name="weather"
             value="cold"
+            checked={values.weather === "cold"}
             onChange={handleChange}
           />
           <span className="modal__label_span">Cold</span>

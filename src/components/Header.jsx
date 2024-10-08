@@ -1,13 +1,18 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "./ToggleSwitch";
-import "../blocks/header.css";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import logo from "../assets/header_logo.svg";
+import "../blocks/header.css";
 
-function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
-  const currentDate = new Date().toLocaleString("default", {
+function Header({ weatherData, handleOpen, isOn, isLoggedIn }) {
+  const CurrentUser = React.useContext(CurrentUserContext);
+  const CurrentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+  const [validAvatar, setValidAvatar] = React.useState(true);
+
   return (
     <header className="header">
       <div className="header__info">
@@ -15,7 +20,7 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
           <img className="header__logo" src={logo} alt="logo" />
         </Link>
         <p className="header__date">
-          {currentDate}, {weatherData.city}
+          {CurrentDate}, {weatherData.city}
         </p>
       </div>
       <div className="header__interaction">
@@ -28,14 +33,25 @@ function Header({ weatherData, handleOpen, avatarPlaceholder, isOn }) {
         >
           + Add clothes
         </button>
-        <Link to="/profile">
+        <Link to="/profile" className="header__link">
           <div className="header__user">
-            <p className="header__username">Bree Massingill</p>
-            <img
-              className="header__avatar"
-              src={avatarPlaceholder}
-              alt="avatar"
-            />
+            <p className="header__username">
+              {isLoggedIn ? CurrentUser.name : "Log In"}
+            </p>
+            {isLoggedIn ? (
+              CurrentUser.avatar && validAvatar ? (
+                <img
+                  className="header__avatar"
+                  src={CurrentUser.avatar}
+                  alt="avatar"
+                  onError={() => setValidAvatar(false)}
+                />
+              ) : (
+                <div className="header__avatar_placeholder">
+                  {CurrentUser.name[0].toUpperCase()}
+                </div>
+              )
+            ) : null}
           </div>
         </Link>
       </div>

@@ -2,15 +2,10 @@ import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/profile.css";
 
-function Profile({
-  avatarPlaceholder,
-  clothingItems,
-
-  handleOpen,
-}) {
+function Profile({ clothingItems, handleOpen }) {
   return (
     <div className="profile">
-      <SideBar avatarPlaceholder={avatarPlaceholder} />
+      <SideBar />
       <ClothesSection clothingItems={clothingItems} handleOpen={handleOpen} />
     </div>
   );

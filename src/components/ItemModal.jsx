@@ -1,12 +1,19 @@
 import React from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import { UseRefContext } from "../contexts/UseRefContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import "../blocks/modals.css";
 import "../blocks/itemModal.css";
 
 function ItemModal({ isOpen, card }) {
   const ItemModalContext = React.useContext(ModalContext);
   const RefContext = React.useContext(UseRefContext);
+  const CurrentUser = React.useContext(CurrentUserContext);
+  const isOwned = card.owner === CurrentUser._id;
+
+  const itemDeleteButtonClassName = `${
+    isOwned ? "modal__open_delete_visible" : "modal__open_delete_hidden"
+  }`;
 
   return (
     <div
@@ -31,7 +38,7 @@ function ItemModal({ isOpen, card }) {
           </div>
           <button
             id="confirm-modal"
-            className="modal__open_delete-modal-button"
+            className={`modal__open_delete-modal-button ${itemDeleteButtonClassName}`}
             onClick={ItemModalContext.openModals}
           >
             Delete item
