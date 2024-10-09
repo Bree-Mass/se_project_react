@@ -36,4 +36,16 @@ const deleteItem = (_id, token) => {
   });
 };
 
-export { baseUrl, request, getItems, postItem, deleteItem };
+const patchUser = ({ name, avatar }, token) => {
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+
+    body: JSON.stringify({ name, avatar }),
+  });
+};
+
+export { baseUrl, request, getItems, postItem, deleteItem, patchUser };

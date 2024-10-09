@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "./ToggleSwitch";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { ModalContext } from "../contexts/ModalContext";
 import logo from "../assets/header_logo.svg";
 import "../blocks/header.css";
 
-function Header({ weatherData, handleOpen, isOn, isLoggedIn }) {
+function Header({ weatherData, isOn, isLoggedIn }) {
   const CurrentUser = React.useContext(CurrentUserContext);
+  const HeaderModalContext = React.useContext(ModalContext);
   const CurrentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -29,17 +31,16 @@ function Header({ weatherData, handleOpen, isOn, isLoggedIn }) {
           id="add-modal"
           className="header__add-button"
           type="button"
-          onClick={handleOpen}
+          onClick={HeaderModalContext.openModals}
         >
           + Add clothes
         </button>
-        <Link to="/profile" className="header__link">
-          <div className="header__user">
-            <p className="header__username">
-              {isLoggedIn ? CurrentUser.name : "Log In"}
-            </p>
-            {isLoggedIn ? (
-              CurrentUser.avatar && validAvatar ? (
+
+        {isLoggedIn ? (
+          <Link to="/profile" className="header__link">
+            <div className="header__user">
+              <p className="header__username">{CurrentUser.name}</p>
+              {CurrentUser.avatar && validAvatar ? (
                 <img
                   className="header__avatar"
                   src={CurrentUser.avatar}
@@ -50,15 +51,24 @@ function Header({ weatherData, handleOpen, isOn, isLoggedIn }) {
                 <div className="header__avatar_placeholder">
                   {CurrentUser.name[0].toUpperCase()}
                 </div>
-              )
-            ) : null}
-          </div>
-        </Link>
+              )}
+            </div>
+          </Link>
+        ) : (
+          <button
+            id="login-modal"
+            className="header__login-button header__username"
+            type="button"
+            onClick={HeaderModalContext.openModals}
+          >
+            Log In
+          </button>
+        )}
       </div>
       <button
         id="menu-modal"
         className="header__menu_modal-button"
-        onClick={handleOpen}
+        onClick={HeaderModalContext.openModals}
       ></button>
     </header>
   );

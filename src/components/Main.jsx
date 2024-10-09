@@ -2,10 +2,12 @@ import React from "react";
 import WeatherCard from "./WeatherCard";
 import ItemCard from "./ItemCard";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
+import { ModalContext } from "../contexts/ModalContext";
 import "../blocks/main.css";
 
-function Main({ filteredItems, weatherData, handleRandomize, handleOpen }) {
+function Main({ filteredItems, weatherData, handleRandomize, onCardLike }) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
+  const MainModalContext = React.useContext(ModalContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
   // CHECK WINDOW SIZE //
@@ -28,11 +30,23 @@ function Main({ filteredItems, weatherData, handleRandomize, handleOpen }) {
         <ul className="main__cards-list">
           {windowWidth > 766
             ? filteredItems.map((item) => (
-                <ItemCard key={item._id} item={item} onCardClick={handleOpen} />
+                <ItemCard
+                  key={item._id}
+                  item={item}
+                  onCardClick={MainModalContext.openModals}
+                  onCardLike={onCardLike}
+                />
               ))
             : filteredItems
                 .slice(0, 4)
-                .map((item) => <ItemCard key={item._id} item={item} />)}
+                .map((item) => (
+                  <ItemCard
+                    key={item._id}
+                    item={item}
+                    onCardClick={MainModalContext.openModals}
+                    onCardLike={onCardLike}
+                  />
+                ))}
         </ul>
       </section>
       <button

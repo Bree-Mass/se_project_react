@@ -27,6 +27,11 @@
   align-items: center;
 }
 
+.header__login-button {
+  cursor: pointer;
+  border: none;
+}
+
 .header__link {
   text-decoration: none;
   color: inherit;

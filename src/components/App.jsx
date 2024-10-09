@@ -9,11 +9,12 @@ import ConfirmationModal from "./ConfirmationModal";
 import MenuModal from "./MenuModal";
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
+import EditProfileModal from "./EditProfileModal";
 import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import { apiCall } from "../utils/constants";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
-import { getItems, postItem, deleteItem } from "../utils/api";
+import { getItems, postItem, deleteItem, patchUser } from "../utils/api";
 import { signup, signin, authorizeToken } from "../utils/auth";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -48,6 +49,7 @@ const App = () => {
   const menuModalRef = React.useRef(null);
   const registerModalRef = React.useRef(null);
   const loginModalRef = React.useRef(null);
+  const editModalRef = React.useRef(null);
 
   //// REGISTRATION AND LOGIN ////
 
@@ -73,6 +75,13 @@ const App = () => {
         closeModals();
       })
       .catch(console.error);
+  };
+
+  const handleEdit = ({ name, avatar }) => {
+    patchUser({ name, avatar }, userToken).then((user) => {
+      setCurrentUser(user.data);
+      closeModals();
+    });
   };
 
   //// AUTHORIZATION ////
@@ -137,6 +146,32 @@ const App = () => {
       .catch(console.error);
   };
 
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          // the first argument is the card's id
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   //// HANDLE MODALS ////
 
   // if the object clicked does not have a key "_id" then use the objects id.
@@ -166,7 +201,8 @@ const App = () => {
         evt.target === menuModalRef.current ||
         evt.target === confirmationModalRef.current ||
         evt.target === registerModalRef.current ||
-        evt.target === loginModalRef.current
+        evt.target === loginModalRef.current ||
+        evt.target === editModalRef.current
       ) {
         closeModals();
       }
@@ -230,12 +266,12 @@ const App = () => {
                   confirmationModalRef,
                   registerModalRef,
                   loginModalRef,
+                  editModalRef,
                 }}
               >
                 <div className="page__content">
                   <Header
                     weatherData={weatherData}
-                    handleOpen={openModals}
                     isOn={isSwitchOn}
                     isLoggedIn={isLoggedIn}
                   />
@@ -247,7 +283,7 @@ const App = () => {
                           filteredItems={filteredItems}
                           weatherData={weatherData}
                           handleRandomize={handleRandomize}
-                          handleOpen={openModals}
+                          onCardLike={handleCardLike}
                         />
                       }
                     />
@@ -255,10 +291,7 @@ const App = () => {
                       path="/profile"
                       element={
                         <ProtectedRoute isLoggedIn={isLoggedIn}>
-                          <Profile
-                            clothingItems={clothingItems}
-                            handleOpen={openModals}
-                          />
+                          <Profile clothingItems={clothingItems} />
                         </ProtectedRoute>
                       }
                     />
@@ -291,6 +324,10 @@ const App = () => {
                 <LoginModal
                   isOpen={activeModal === "login-modal"}
                   handleLogin={handleLogin}
+                />
+                <EditProfileModal
+                  isOpen={activeModal === "edit-modal"}
+                  handleEdit={handleEdit}
                 />
               </UseRefContext.Provider>
             </ModalContext.Provider>

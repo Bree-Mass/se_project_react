@@ -1,9 +1,11 @@
 import React from "react";
+import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/LoginModal.css";
 
 function LoginModal({ isOpen, handleLogin }) {
+  const LoginModalContext = React.useContext(ModalContext);
   const { values, handleChange, errors, isButtonDisabled } =
     useFormAndValidation(isOpen);
 
@@ -70,7 +72,12 @@ function LoginModal({ isOpen, handleLogin }) {
         </span>
       </label>
 
-      <button className="modal__button_type_register" type="button">
+      <button
+        id="register-modal"
+        className="modal__button_type_register"
+        type="button"
+        onClick={LoginModalContext.openModals}
+      >
         or Sign Up
       </button>
     </ModalWithForm>

@@ -1,9 +1,11 @@
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { ModalContext } from "../contexts/ModalContext";
 import "../blocks/sideBar.css";
 
 function SideBar() {
   const CurrentUser = React.useContext(CurrentUserContext);
+  const SideBarModalContext = React.useContext(ModalContext);
   const [validAvatar, setValidAvatar] = React.useState(true);
 
   return (
@@ -23,7 +25,12 @@ function SideBar() {
 
       <div className="sidebar__user">
         <h2 className="sidebar__username">{CurrentUser.name}</h2>
-        <button className="sidebar__button sidebar__button_type_profile">
+        <button
+          id="edit-modal"
+          className="sidebar__button sidebar__button_type_profile"
+          type="button"
+          onClick={SideBarModalContext.openModals}
+        >
           Change profile data
         </button>
         <button className="sidebar__button sidebar__button_type_logout">
