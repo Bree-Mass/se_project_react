@@ -20,7 +20,7 @@ function EditProfileModal({ isOpen, handleEdit }) {
         avatar: currentUser.avatar || "",
       });
     }
-  }, [isOpen]);
+  }, [isOpen, currentUser.name, currentUser.avatar, resetForm]);
 
   return (
     <ModalWithForm

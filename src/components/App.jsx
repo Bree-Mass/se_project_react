@@ -116,11 +116,12 @@ const App = () => {
 
   //// CARDS ////
 
-  const handleFilter = (array) => {
-    return array.filter((item) => {
-      return item.weather === weatherData.type;
-    });
-  };
+  const handleFilter = React.useCallback(
+    (array) => {
+      return array.filter(({ weather }) => weather === weatherData.type);
+    },
+    [weatherData.type]
+  );
 
   const handleRandomize = () => {
     setFilteredItems(
@@ -241,7 +242,7 @@ const App = () => {
 
   React.useEffect(() => {
     setFilteredItems(handleFilter(clothingItems));
-  }, [weatherData.type, clothingItems]);
+  }, [weatherData.type, clothingItems, handleFilter]);
 
   // MOCK SERVER API //
   React.useEffect(() => {

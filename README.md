@@ -1,16 +1,25 @@
 # WTWR (What to Wear?)
 
-## About the project
+## About the Project
 
-In this project we make a call to an API, which then responds with the daily weather forecast. We collect the weather data, process it, and then based on the forecast, we recommend suitable clothing to the user.
+WTWR is a web application that provides clothing recommendations based on the daily weather forecast. The application makes API calls to retrieve weather data, processes this information, and suggests suitable clothing options for users based on the forecast.
 
-## Technologies
+## Technologies Used
 
-This project was built using React.jsx and Vite. It's been hosted on Github Pages. Information is complied using a variety of filter and map methods on the arrays of data collected from the API and rendered onto the page according to the data recieved.
+This project is built using:
+
+- **React.js**: A JavaScript library for building user interfaces.
+- **Vite**: A build tool that provides a fast development environment.
 
 ## Links
 
-- [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
+- [Figma Design](https://www.figma.com/file/bfVOvqlLmoKZ5lpro8WWBe/Sprint-14_-WTWR?t=3hvVWRz9LUFsxyNn-6)
+- [Backend Repository](https://github.com/Bree-Mass/se_project_express)
 
-- [GH Pages (outdated)](https://Bree-Mass.github.io/se_project_react/)
-  GH Pages is now outdated. Since I've set up a mock server to simulate API requests with "db.json" it will no longer work on GH Pages, so the link will direct you to an older, working version of the page. This project will be hosted on Google Cloud and I will update this with the new information once it's set up.
+## How to Run the Project Locally
+
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Start the development server with `npm run dev`.
+
+For a full-stack experience, ensure that you also set up the backend API available [here](https://github.com/Bree-Mass/se_project_express).

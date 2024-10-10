@@ -1,5 +1,3 @@
-import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
@@ -9,8 +7,7 @@ function AddItemModal({ isOpen, handleAddItem }) {
 
   const handleAddItemSubmit = (evt) => {
     evt.preventDefault();
-    const valuesWithId = { _id: uuidv4(), ...values };
-    handleAddItem(valuesWithId);
+    handleAddItem(values);
   };
 
   return (
