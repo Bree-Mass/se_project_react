@@ -14,7 +14,7 @@ This project is built using:
 ## Links
 
 - [Figma Design](https://www.figma.com/file/bfVOvqlLmoKZ5lpro8WWBe/Sprint-14_-WTWR?t=3hvVWRz9LUFsxyNn-6)
-- [Backend Repository](https://github.com/Bree-Mass/se_project_express)
+- [Backend Repository](https://github.com/Bree-Mass/se_project_express.git)
 - [Backend README](https://github.com/Bree-Mass/se_project_express/blob/main/README.md)
 
 ## How to Run the Project Locally
