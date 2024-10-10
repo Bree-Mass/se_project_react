@@ -13,6 +13,10 @@ function MenuModal({ isOpen, isOn, isLoggedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [validAvatar, setValidAvatar] = React.useState(true);
 
+  React.useEffect(() => {
+    setValidAvatar(true);
+  }, [currentUser.avatar]);
+
   return (
     <div
       className={`modal modal__type_menu-modal ${isOpen ? "modal_opened" : ""}`}
@@ -24,31 +28,42 @@ function MenuModal({ isOpen, isOn, isLoggedIn }) {
           type="button"
           onClick={menuModalContext.closeModals}
         />
-        <Link
-          to="/profile"
-          className="header__link"
-          onClick={menuModalContext.closeModals}
-        >
-          <div className="modal__user">
-            <p className="modal__username">
-              {isLoggedIn ? currentUser.name : "Log In"}
-            </p>
-            {isLoggedIn ? (
-              currentUser.avatar && validAvatar ? (
-                <img
-                  className="header__avatar"
-                  src={currentUser.avatar}
-                  alt="avatar"
-                  onError={() => setValidAvatar(false)}
-                />
-              ) : (
-                <div className="header__avatar_placeholder">
-                  {currentUser.name[0].toUpperCase()}
-                </div>
-              )
-            ) : null}
-          </div>
-        </Link>
+        {isLoggedIn ? (
+          <Link
+            to="/profile"
+            className="header__link"
+            onClick={menuModalContext.closeModals}
+          >
+            <div className="modal__user">
+              <p className="modal__username">
+                {isLoggedIn ? currentUser.name : "Log In"}
+              </p>
+              {isLoggedIn ? (
+                currentUser.avatar && validAvatar ? (
+                  <img
+                    className="header__avatar"
+                    src={currentUser.avatar}
+                    alt="avatar"
+                    onError={() => setValidAvatar(false)}
+                  />
+                ) : (
+                  <div className="header__avatar_placeholder">
+                    {currentUser.name[0].toUpperCase()}
+                  </div>
+                )
+              ) : null}
+            </div>
+          </Link>
+        ) : (
+          <button
+            id="login-modal"
+            className="modal__login-button modal__user"
+            type="button"
+            onClick={menuModalContext.openModals}
+          >
+            Log In
+          </button>
+        )}
         <button
           id="add-modal"
           className="modal__add-button"

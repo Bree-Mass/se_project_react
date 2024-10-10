@@ -41,6 +41,13 @@
   width: 40px;
 }
 
+.modal__login-button {
+  cursor: pointer;
+  border: none;
+  height: fit-content;
+  background: none;
+}
+
 .modal__add-button {
   cursor: pointer;
   width: 116px;
