@@ -2,7 +2,7 @@ import React from "react";
 import { ModalContext } from "../contexts/ModalContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
-import "../blocks/LoginModal.css";
+import "../blocks/loginModal.css";
 
 function LoginModal({ isOpen, handleLogin }) {
   const loginModalContext = React.useContext(ModalContext);
