@@ -14,7 +14,14 @@ import Footer from "./Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import { apiCall } from "../utils/constants";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
-import { getItems, postItem, deleteItem, patchUser } from "../utils/api";
+import {
+  getItems,
+  postItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+  patchUser,
+} from "../utils/api";
 import { signup, signin, authorizeToken } from "../utils/auth";
 import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -146,30 +153,29 @@ const App = () => {
       .catch(console.error);
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = (card) => {
     const token = localStorage.getItem("jwt");
-    // Check if this card is not currently liked
+    const isLiked = card.likes.includes(currentUser._id);
+
     !isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
-        api
-          // the first argument is the card's id
-          .addCardLike(id, token)
+      ? addCardLike(card._id, token)
           .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+            setClothingItems((items) =>
+              items.map((item) =>
+                item._id === card._id ? updatedCard.data : item
+              )
             );
           })
-          .catch((err) => console.log(err))
-      : // if not, send a request to remove the user's id from the card's likes array
-        api
-          // the first argument is the card's id
-          .removeCardLike(id, token)
+          .catch(console.error)
+      : removeCardLike(card._id, token)
           .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+            setClothingItems((items) =>
+              items.map((item) =>
+                item._id === card._id ? updatedCard.data : item
+              )
             );
           })
-          .catch((err) => console.log(err));
+          .catch(console.error);
   };
 
   //// HANDLE MODALS ////
@@ -291,7 +297,10 @@ const App = () => {
                       path="/profile"
                       element={
                         <ProtectedRoute isLoggedIn={isLoggedIn}>
-                          <Profile clothingItems={clothingItems} />
+                          <Profile
+                            clothingItems={clothingItems}
+                            onCardLike={handleCardLike}
+                          />
                         </ProtectedRoute>
                       }
                     />

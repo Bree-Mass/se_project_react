@@ -36,6 +36,26 @@ const deleteItem = (_id, token) => {
   });
 };
 
+const addCardLike = (id, token) => {
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const removeCardLike = (id, token) => {
+  return request(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const patchUser = ({ name, avatar }, token) => {
   return request(`${baseUrl}/users/me`, {
     method: "PATCH",
@@ -48,4 +68,13 @@ const patchUser = ({ name, avatar }, token) => {
   });
 };
 
-export { baseUrl, request, getItems, postItem, deleteItem, patchUser };
+export {
+  baseUrl,
+  request,
+  getItems,
+  postItem,
+  deleteItem,
+  addCardLike,
+  removeCardLike,
+  patchUser,
+};

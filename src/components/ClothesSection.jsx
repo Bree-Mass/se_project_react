@@ -4,7 +4,7 @@ import { ModalContext } from "../contexts/ModalContext";
 import ItemCard from "./ItemCard";
 import "../blocks/clothesSection.css";
 
-function ClothesSection({ clothingItems }) {
+function ClothesSection({ clothingItems, onCardLike }) {
   const CurrentUser = React.useContext(CurrentUserContext);
   const ClothesModalContext = React.useContext(ModalContext);
 
@@ -30,6 +30,7 @@ function ClothesSection({ clothingItems }) {
                 key={item._id}
                 item={item}
                 onCardClick={ClothesModalContext.openModals}
+                onCardLike={onCardLike}
               />
             ))}
         </ul>

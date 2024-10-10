@@ -2,11 +2,11 @@ import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/profile.css";
 
-function Profile({ clothingItems }) {
+function Profile({ clothingItems, onCardLike }) {
   return (
     <div className="profile">
       <SideBar />
-      <ClothesSection clothingItems={clothingItems} />
+      <ClothesSection clothingItems={clothingItems} onCardLike={onCardLike} />
     </div>
   );
 }
