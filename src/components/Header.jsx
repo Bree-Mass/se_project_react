@@ -7,13 +7,17 @@ import logo from "../assets/header_logo.svg";
 import "../blocks/header.css";
 
 function Header({ weatherData, isOn, isLoggedIn }) {
-  const CurrentUser = React.useContext(CurrentUserContext);
-  const HeaderModalContext = React.useContext(ModalContext);
+  const currentUser = React.useContext(CurrentUserContext);
+  const headerModalContext = React.useContext(ModalContext);
+  const [validAvatar, setValidAvatar] = React.useState(true);
   const CurrentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-  const [validAvatar, setValidAvatar] = React.useState(true);
+
+  React.useEffect(() => {
+    setValidAvatar(true);
+  }, [currentUser.avatar]);
 
   return (
     <header className="header">
@@ -31,7 +35,7 @@ function Header({ weatherData, isOn, isLoggedIn }) {
           id="add-modal"
           className="header__add-button"
           type="button"
-          onClick={HeaderModalContext.openModals}
+          onClick={headerModalContext.openModals}
         >
           + Add clothes
         </button>
@@ -39,17 +43,17 @@ function Header({ weatherData, isOn, isLoggedIn }) {
         {isLoggedIn ? (
           <Link to="/profile" className="header__link">
             <div className="header__user">
-              <p className="header__username">{CurrentUser.name}</p>
-              {CurrentUser.avatar && validAvatar ? (
+              <p className="header__username">{currentUser.name}</p>
+              {currentUser.avatar && validAvatar ? (
                 <img
                   className="header__avatar"
-                  src={CurrentUser.avatar}
+                  src={currentUser.avatar}
                   alt="avatar"
                   onError={() => setValidAvatar(false)}
                 />
               ) : (
                 <div className="header__avatar_placeholder">
-                  {CurrentUser.name[0].toUpperCase()}
+                  {currentUser.name[0].toUpperCase()}
                 </div>
               )}
             </div>
@@ -59,7 +63,7 @@ function Header({ weatherData, isOn, isLoggedIn }) {
             id="login-modal"
             className="header__login-button header__username"
             type="button"
-            onClick={HeaderModalContext.openModals}
+            onClick={headerModalContext.openModals}
           >
             Log In
           </button>
@@ -68,7 +72,7 @@ function Header({ weatherData, isOn, isLoggedIn }) {
       <button
         id="menu-modal"
         className="header__menu_modal-button"
-        onClick={HeaderModalContext.openModals}
+        onClick={headerModalContext.openModals}
       ></button>
     </header>
   );

@@ -3,7 +3,8 @@ import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import "../blocks/toggleSwitch.css";
 
 const ToggleSwitch = ({ isOn }) => {
-  const CurrentTempContext = React.useContext(CurrentTempUnitContext);
+  const currentTempContext = React.useContext(CurrentTempUnitContext);
+
   return (
     <>
       <input
@@ -11,7 +12,7 @@ const ToggleSwitch = ({ isOn }) => {
         id="switch"
         type="checkbox"
         checked={isOn}
-        onChange={CurrentTempContext.handleToggleSwitchChange}
+        onChange={currentTempContext.handleToggleSwitchChange}
       />
       <label className="switch__label" htmlFor="switch">
         <p

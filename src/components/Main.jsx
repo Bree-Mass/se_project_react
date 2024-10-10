@@ -5,9 +5,15 @@ import { CurrentTempUnitContext } from "../contexts/CurrentTempUnitContext";
 import { ModalContext } from "../contexts/ModalContext";
 import "../blocks/main.css";
 
-function Main({ filteredItems, weatherData, handleRandomize, onCardLike }) {
+function Main({
+  filteredItems,
+  weatherData,
+  handleRandomize,
+  onCardLike,
+  isLoggedIn,
+}) {
   const currentTempUnitContext = React.useContext(CurrentTempUnitContext);
-  const MainModalContext = React.useContext(ModalContext);
+  const mainModalContext = React.useContext(ModalContext);
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
   // CHECK WINDOW SIZE //
@@ -33,8 +39,9 @@ function Main({ filteredItems, weatherData, handleRandomize, onCardLike }) {
                 <ItemCard
                   key={item._id}
                   item={item}
-                  onCardClick={MainModalContext.openModals}
+                  onCardClick={mainModalContext.openModals}
                   onCardLike={onCardLike}
+                  isLoggedIn={isLoggedIn}
                 />
               ))
             : filteredItems
@@ -43,8 +50,9 @@ function Main({ filteredItems, weatherData, handleRandomize, onCardLike }) {
                   <ItemCard
                     key={item._id}
                     item={item}
-                    onCardClick={MainModalContext.openModals}
+                    onCardClick={mainModalContext.openModals}
                     onCardLike={onCardLike}
+                    isLoggedIn={isLoggedIn}
                   />
                 ))}
         </ul>

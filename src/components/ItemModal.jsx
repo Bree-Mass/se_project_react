@@ -6,25 +6,26 @@ import "../blocks/modals.css";
 import "../blocks/itemModal.css";
 
 function ItemModal({ isOpen, card }) {
-  const ItemModalContext = React.useContext(ModalContext);
-  const RefContext = React.useContext(UseRefContext);
-  const CurrentUser = React.useContext(CurrentUserContext);
-  const isOwned = card.owner === CurrentUser._id;
+  const itemModalContext = React.useContext(ModalContext);
+  const refContext = React.useContext(UseRefContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   const itemDeleteButtonClassName = `${
-    isOwned ? "modal__open_delete_visible" : "modal__open_delete_hidden"
+    card.owner === currentUser._id
+      ? "modal__open_delete_visible"
+      : "modal__open_delete_hidden"
   }`;
 
   return (
     <div
       className={`modal ${isOpen ? "modal_opened" : ""}`}
-      ref={RefContext.itemModalRef}
+      ref={refContext.itemModalRef}
     >
       <div className="modal__content modal__content_type_image">
         <button
           className="modal__close-button modal__close-button_type_image"
           type="button"
-          onClick={ItemModalContext.closeModals}
+          onClick={itemModalContext.closeModals}
         />
         <img
           src={card.imageUrl}
@@ -39,7 +40,7 @@ function ItemModal({ isOpen, card }) {
           <button
             id="confirm-modal"
             className={`modal__open_delete-modal-button ${itemDeleteButtonClassName}`}
-            onClick={ItemModalContext.openModals}
+            onClick={itemModalContext.openModals}
           >
             Delete item
           </button>

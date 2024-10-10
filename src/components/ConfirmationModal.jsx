@@ -5,19 +5,19 @@ import "../blocks/modals.css";
 import "../blocks/confirmationModal.css";
 
 function ConfirmationModal({ isOpen, card, handleDelete }) {
-  const ConfirmationModalContext = React.useContext(ModalContext);
-  const RefContext = React.useContext(UseRefContext);
+  const confirmationModalContext = React.useContext(ModalContext);
+  const refContext = React.useContext(UseRefContext);
 
   return (
     <div
       className={`modal ${isOpen ? "modal_opened" : ""}`}
-      ref={RefContext.confirmationModalRef}
+      ref={refContext.confirmationModalRef}
     >
       <div className="modal__content modal__content_type_confirm">
         <button
           className="modal__close-button modal__close-button_type_image"
           type="button"
-          onClick={ConfirmationModalContext.closeModals}
+          onClick={confirmationModalContext.closeModals}
         />
         <p className="modal__confirmation-text">
           Are you sure you want to delete this item?
@@ -32,7 +32,7 @@ function ConfirmationModal({ isOpen, card, handleDelete }) {
         </button>
         <button
           className="modal__delete-button modal__delete-button_cancel"
-          onClick={ConfirmationModalContext.closeModals}
+          onClick={confirmationModalContext.closeModals}
         >
           Cancel
         </button>

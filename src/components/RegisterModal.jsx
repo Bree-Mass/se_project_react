@@ -5,7 +5,7 @@ import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/RegisterModal.css";
 
 function RegisterModal({ isOpen, handleRegistration }) {
-  const RegisterModalContext = React.useContext(ModalContext);
+  const registerModalContext = React.useContext(ModalContext);
   const { values, handleChange, errors, isButtonDisabled } =
     useFormAndValidation(isOpen);
 
@@ -123,7 +123,7 @@ function RegisterModal({ isOpen, handleRegistration }) {
         id="login-modal"
         className="modal__button_type_login"
         type="button"
-        onClick={RegisterModalContext.openModals}
+        onClick={registerModalContext.openModals}
       >
         or Log In
       </button>

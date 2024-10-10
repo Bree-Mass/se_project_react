@@ -2,11 +2,15 @@ import SideBar from "./SideBar";
 import ClothesSection from "./ClothesSection";
 import "../blocks/profile.css";
 
-function Profile({ clothingItems, onCardLike }) {
+function Profile({ clothingItems, onCardLike, isLoggedIn, setIsLoggedIn }) {
   return (
     <div className="profile">
-      <SideBar />
-      <ClothesSection clothingItems={clothingItems} onCardLike={onCardLike} />
+      <SideBar setIsLoggedIn={setIsLoggedIn} />
+      <ClothesSection
+        clothingItems={clothingItems}
+        onCardLike={onCardLike}
+        isLoggedIn={isLoggedIn}
+      />
     </div>
   );
 }

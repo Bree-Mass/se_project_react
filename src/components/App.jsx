@@ -130,9 +130,10 @@ const App = () => {
 
   const handleAddItem = (newItem) => {
     postItem(newItem, userToken)
-      .then(() => {
+      .then((res) => {
         setClothingItems((prevItems) => {
           newItem.owner = currentUser._id;
+          newItem._id = res.data._id;
           return [newItem, ...prevItems];
         });
         closeModals();
@@ -155,7 +156,7 @@ const App = () => {
 
   const handleCardLike = (card) => {
     const token = localStorage.getItem("jwt");
-    const isLiked = card.likes.includes(currentUser._id);
+    const isLiked = card.likes?.includes(currentUser._id);
 
     !isLiked
       ? addCardLike(card._id, token)
@@ -290,6 +291,7 @@ const App = () => {
                           weatherData={weatherData}
                           handleRandomize={handleRandomize}
                           onCardLike={handleCardLike}
+                          isLoggedIn={isLoggedIn}
                         />
                       }
                     />
@@ -300,6 +302,8 @@ const App = () => {
                           <Profile
                             clothingItems={clothingItems}
                             onCardLike={handleCardLike}
+                            isLoggedIn={isLoggedIn}
+                            setIsLoggedIn={setIsLoggedIn}
                           />
                         </ProtectedRoute>
                       }

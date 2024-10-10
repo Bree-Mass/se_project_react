@@ -4,7 +4,7 @@ import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
 function EditProfileModal({ isOpen, handleEdit }) {
-  const CurrentUser = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, resetForm, isButtonDisabled } =
     useFormAndValidation(isOpen);
 
@@ -16,8 +16,8 @@ function EditProfileModal({ isOpen, handleEdit }) {
   React.useEffect(() => {
     if (isOpen) {
       resetForm({
-        name: CurrentUser.name || "",
-        avatar: CurrentUser.avatar || "",
+        name: currentUser.name || "",
+        avatar: currentUser.avatar || "",
       });
     }
   }, [isOpen]);

@@ -13,10 +13,10 @@ function ModalWithForm({
   isButtonDisabled,
   handleSubmit,
 }) {
-  const FormModalContext = React.useContext(ModalContext);
-  const RefContext = React.useContext(UseRefContext);
+  const formModalContext = React.useContext(ModalContext);
+  const refContext = React.useContext(UseRefContext);
 
-  const formModalRef = RefContext[`${modalRefType}ModalRef`];
+  const formModalRef = refContext[`${modalRefType}ModalRef`];
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`} ref={formModalRef}>
@@ -25,11 +25,11 @@ function ModalWithForm({
         <button
           className="modal__close-button modal__close-button_type_form"
           type="button"
-          onClick={FormModalContext.closeModals}
+          onClick={formModalContext.closeModals}
         />
         <form
           className="modal__form"
-          ref={RefContext.formRef}
+          ref={refContext.formRef}
           onSubmit={handleSubmit}
         >
           {children}
