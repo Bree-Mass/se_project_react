@@ -1,7 +1,7 @@
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
-function AddItemModal({ isOpen, handleAddItem }) {
+function AddItemModal({ isOpen, handleAddItem, isLoading }) {
   const { values, handleChange, errors, isButtonDisabled } =
     useFormAndValidation(isOpen);
 
@@ -13,7 +13,7 @@ function AddItemModal({ isOpen, handleAddItem }) {
   return (
     <ModalWithForm
       titleText="New garment"
-      buttonText="Add garment"
+      buttonText={isLoading ? "Saving..." : "Add garment"}
       modalRefType="addItem"
       isOpen={isOpen}
       isButtonDisabled={isButtonDisabled}

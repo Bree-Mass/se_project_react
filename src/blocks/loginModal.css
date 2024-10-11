@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.modal__button_type_register_loading {
+  left: 150px;
+}
+
 .modal__button_type_register:hover {
   color: rgba(0, 0, 0, 1);
 }

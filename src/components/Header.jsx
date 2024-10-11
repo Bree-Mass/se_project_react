@@ -31,14 +31,25 @@ function Header({ weatherData, isOn, isLoggedIn }) {
       </div>
       <div className="header__interaction">
         <ToggleSwitch isOn={isOn} />
-        <button
-          id="add-modal"
-          className="header__add-button"
-          type="button"
-          onClick={headerModalContext.openModals}
-        >
-          + Add clothes
-        </button>
+        {isLoggedIn ? (
+          <button
+            id="add-modal"
+            className="header__add-button"
+            type="button"
+            onClick={headerModalContext.openModals}
+          >
+            + Add clothes
+          </button>
+        ) : (
+          <button
+            id="register-modal"
+            className="header__add-button"
+            type="button"
+            onClick={headerModalContext.openModals}
+          >
+            Sign Up
+          </button>
+        )}
 
         {isLoggedIn ? (
           <Link to="/profile" className="header__link">

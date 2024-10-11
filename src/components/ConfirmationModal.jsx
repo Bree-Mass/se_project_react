@@ -4,7 +4,7 @@ import { UseRefContext } from "../contexts/UseRefContext";
 import "../blocks/modals.css";
 import "../blocks/confirmationModal.css";
 
-function ConfirmationModal({ isOpen, card, handleDelete }) {
+function ConfirmationModal({ isOpen, card, handleDelete, isLoading }) {
   const confirmationModalContext = React.useContext(ModalContext);
   const refContext = React.useContext(UseRefContext);
 
@@ -28,7 +28,7 @@ function ConfirmationModal({ isOpen, card, handleDelete }) {
           className="modal__delete-button modal__delete-button_accept"
           onClick={() => handleDelete(card)}
         >
-          Yes, delete item
+          {isLoading ? "Deleting..." : "Yes, delete item"}
         </button>
         <button
           className="modal__delete-button modal__delete-button_cancel"

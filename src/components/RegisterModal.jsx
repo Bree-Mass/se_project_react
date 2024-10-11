@@ -4,7 +4,7 @@ import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/RegisterModal.css";
 
-function RegisterModal({ isOpen, handleRegistration }) {
+function RegisterModal({ isOpen, handleRegistration, isLoading }) {
   const registerModalContext = React.useContext(ModalContext);
   const { values, handleChange, errors, isButtonDisabled } =
     useFormAndValidation(isOpen);
@@ -17,7 +17,7 @@ function RegisterModal({ isOpen, handleRegistration }) {
   return (
     <ModalWithForm
       titleText="Sign Up"
-      buttonText="Sign Up"
+      buttonText={isLoading ? "Signing Up..." : "Sign Up"}
       modalRefType="register"
       isOpen={isOpen}
       isButtonDisabled={isButtonDisabled}
@@ -121,7 +121,9 @@ function RegisterModal({ isOpen, handleRegistration }) {
       </label>
       <button
         id="login-modal"
-        className="modal__button_type_login"
+        className={`modal__button_type_login ${
+          isLoading ? "modal__button_type_login_loading" : ""
+        }`}
         type="button"
         onClick={registerModalContext.openModals}
       >

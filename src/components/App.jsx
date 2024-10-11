@@ -37,6 +37,7 @@ const App = () => {
   const [activeModal, setActiveModal] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [weatherData, setWeatherData] = React.useState({
     type: "",
     temp: { F: "", C: "" },
@@ -58,37 +59,57 @@ const App = () => {
   const loginModalRef = React.useRef(null);
   const editModalRef = React.useRef(null);
 
+  //// SUBMISSIONS ////
+
+  function handleSubmit(request) {
+    setIsLoading(true);
+    request()
+      .then(closeModals)
+      .catch(console.error)
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 400);
+      });
+  }
+
   //// REGISTRATION AND LOGIN ////
 
   const handleRegistration = ({ email, password, name, avatar }) => {
-    signup({ email, password, name, avatar })
-      .then(handleLogin({ email, password }))
-      .catch(console.error);
+    const makeRequest = () => {
+      return signup({ email, password, name, avatar }).then(() =>
+        handleLogin({ email, password })
+      );
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleLogin = ({ email, password }) => {
-    signin({ email, password })
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setUserToken(res.token);
-        return res.token;
-      })
-      .then((token) => {
-        return authorizeToken(token);
-      })
-      .then((user) => {
-        setCurrentUser(user.data);
-        setIsLoggedIn(true);
-        closeModals();
-      })
-      .catch(console.error);
+    const makeRequest = () => {
+      return signin({ email, password })
+        .then((res) => {
+          localStorage.setItem("jwt", res.token);
+          setUserToken(res.token);
+          return res.token;
+        })
+        .then((token) => {
+          return authorizeToken(token);
+        })
+        .then((user) => {
+          setCurrentUser(user.data);
+          setIsLoggedIn(true);
+        });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleEdit = ({ name, avatar }) => {
-    patchUser({ name, avatar }, userToken).then((user) => {
-      setCurrentUser(user.data);
-      closeModals();
-    });
+    const makeRequest = () => {
+      return patchUser({ name, avatar }, userToken).then((user) => {
+        setCurrentUser(user.data);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   //// AUTHORIZATION ////
@@ -130,54 +151,50 @@ const App = () => {
   };
 
   const handleAddItem = (newItem) => {
-    postItem(newItem, userToken)
-      .then((res) => {
+    const makeRequest = () => {
+      return postItem(newItem, userToken).then((res) => {
         setClothingItems((prevItems) => {
           newItem.owner = currentUser._id;
           newItem._id = res.data._id;
           return [newItem, ...prevItems];
         });
-        closeModals();
-      })
-      .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleDelete = (itemToDelete) => {
-    deleteItem(itemToDelete._id, userToken)
-      .then(() => {
+    const makeRequest = () => {
+      return deleteItem(itemToDelete._id, userToken).then(() => {
         setClothingItems(
           clothingItems.filter((item) => {
             return item !== itemToDelete;
           })
         );
-        closeModals();
-      })
-      .catch(console.error);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleCardLike = (card) => {
     const token = localStorage.getItem("jwt");
     const isLiked = card.likes?.includes(currentUser._id);
+    const requestLike = () => {
+      return addCardLike(card._id, token).then((updatedCard) => {
+        setClothingItems((items) =>
+          items.map((item) => (item._id === card._id ? updatedCard.data : item))
+        );
+      });
+    };
+    const requestUnlike = () => {
+      return removeCardLike(card._id, token).then((updatedCard) => {
+        setClothingItems((items) =>
+          items.map((item) => (item._id === card._id ? updatedCard.data : item))
+        );
+      });
+    };
 
-    !isLiked
-      ? addCardLike(card._id, token)
-          .then((updatedCard) => {
-            setClothingItems((items) =>
-              items.map((item) =>
-                item._id === card._id ? updatedCard.data : item
-              )
-            );
-          })
-          .catch(console.error)
-      : removeCardLike(card._id, token)
-          .then((updatedCard) => {
-            setClothingItems((items) =>
-              items.map((item) =>
-                item._id === card._id ? updatedCard.data : item
-              )
-            );
-          })
-          .catch(console.error);
+    !isLiked ? handleSubmit(requestLike) : handleSubmit(requestUnlike);
   };
 
   //// HANDLE MODALS ////
@@ -316,6 +333,7 @@ const App = () => {
                 <AddItemModal
                   isOpen={activeModal === "add-modal"}
                   handleAddItem={handleAddItem}
+                  isLoading={isLoading}
                 />
                 <ItemModal
                   isOpen={activeModal === "card-modal"}
@@ -325,6 +343,7 @@ const App = () => {
                   isOpen={activeModal === "confirm-modal"}
                   card={selectedCard}
                   handleDelete={handleDelete}
+                  isLoading={isLoading}
                 />
                 <MenuModal
                   isOpen={activeModal === "menu-modal"}
@@ -334,14 +353,17 @@ const App = () => {
                 <RegisterModal
                   isOpen={activeModal === "register-modal"}
                   handleRegistration={handleRegistration}
+                  isLoading={isLoading}
                 />
                 <LoginModal
                   isOpen={activeModal === "login-modal"}
                   handleLogin={handleLogin}
+                  isLoading={isLoading}
                 />
                 <EditProfileModal
                   isOpen={activeModal === "edit-modal"}
                   handleEdit={handleEdit}
+                  isLoading={isLoading}
                 />
               </UseRefContext.Provider>
             </ModalContext.Provider>

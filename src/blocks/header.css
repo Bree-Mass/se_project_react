@@ -30,6 +30,7 @@
 .header__login-button {
   cursor: pointer;
   border: none;
+  background: transparent;
 }
 
 .header__link {

@@ -4,7 +4,7 @@ import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 import "../blocks/loginModal.css";
 
-function LoginModal({ isOpen, handleLogin }) {
+function LoginModal({ isOpen, handleLogin, isLoading }) {
   const loginModalContext = React.useContext(ModalContext);
 
   const { values, handleChange, errors, isButtonDisabled } =
@@ -18,7 +18,7 @@ function LoginModal({ isOpen, handleLogin }) {
   return (
     <ModalWithForm
       titleText="Log In"
-      buttonText="Log In"
+      buttonText={isLoading ? "Logging In..." : "Log In"}
       modalRefType="login"
       isOpen={isOpen}
       isButtonDisabled={isButtonDisabled}
@@ -75,7 +75,9 @@ function LoginModal({ isOpen, handleLogin }) {
 
       <button
         id="register-modal"
-        className="modal__button_type_register"
+        className={`modal__button_type_register ${
+          isLoading ? "modal__button_type_register_loading" : ""
+        }`}
         type="button"
         onClick={loginModalContext.openModals}
       >

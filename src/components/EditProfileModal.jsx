@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import ModalWithForm from "./ModalWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
-function EditProfileModal({ isOpen, handleEdit }) {
+function EditProfileModal({ isOpen, handleEdit, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, resetForm, isButtonDisabled } =
     useFormAndValidation(isOpen);
@@ -25,7 +25,7 @@ function EditProfileModal({ isOpen, handleEdit }) {
   return (
     <ModalWithForm
       titleText="Change profile data"
-      buttonText="Save changes"
+      buttonText={isLoading ? "Saving..." : "Save changes"}
       modalRefType="edit"
       isOpen={isOpen}
       isButtonDisabled={isButtonDisabled}
