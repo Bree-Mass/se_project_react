@@ -64,14 +64,25 @@ function MenuModal({ isOpen, isOn, isLoggedIn }) {
             Log In
           </button>
         )}
-        <button
-          id="add-modal"
-          className="modal__add-button"
-          type="button"
-          onClick={menuModalContext.openModals}
-        >
-          + Add clothes
-        </button>
+        {isLoggedIn ? (
+          <button
+            id="add-modal"
+            className="modal__add-button"
+            type="button"
+            onClick={menuModalContext.openModals}
+          >
+            + Add clothes
+          </button>
+        ) : (
+          <button
+            id="register-modal"
+            className="modal__add-button"
+            type="button"
+            onClick={menuModalContext.openModals}
+          >
+            Sign Up
+          </button>
+        )}
         <ToggleSwitch isOn={isOn} />
       </div>
     </div>
